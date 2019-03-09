@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[next.js初探]]></title>
+    <url>%2F2019%2F03%2F09%2Fnext-js%E5%88%9D%E6%8E%A2%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[mpvue采坑]]></title>
+    <url>%2F2019%2F03%2F09%2Fmpvue%E9%87%87%E5%9D%91%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Charles学习使用]]></title>
+    <url>%2F2019%2F03%2F09%2FCharles%E5%AD%A6%E4%B9%A0%E4%BD%BF%E7%94%A8%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[基于Verdaccio的npm私服]]></title>
+    <url>%2F2019%2F03%2F09%2F%E5%9F%BA%E4%BA%8EVerdaccio%E7%9A%84npm%E7%A7%81%E6%9C%8D%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[React单元测试实战]]></title>
+    <url>%2F2019%2F03%2F09%2FReact%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%E5%AE%9E%E6%88%98%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[WebRTC初探]]></title>
+    <url>%2F2019%2F03%2F09%2FWebRTC%E5%88%9D%E6%8E%A2%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Cocos2dx 记录]]></title>
+    <url>%2F2019%2F03%2F09%2FCocos2dx-%E8%AE%B0%E5%BD%95%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[Electron新手入门]]></title>
+    <url>%2F2019%2F03%2F09%2FElectron%E6%96%B0%E6%89%8B%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
+    <title><![CDATA[基于videojs的web直播系统重构]]></title>
+    <url>%2F2019%2F03%2F09%2F%E5%9F%BA%E4%BA%8Evideojs%E7%9A%84web%E7%9B%B4%E6%92%AD%E7%B3%BB%E7%BB%9F%E9%87%8D%E6%9E%84%2F</url>
+    <content type="text"></content>
+  </entry>
+  <entry>
     <title><![CDATA[GitPage+Hexo建站]]></title>
     <url>%2F2017%2F04%2F01%2FGitPage-Hexo%E5%BB%BA%E7%AB%99%2F</url>
-    <content type="text"><![CDATA[这里简要记录 GitPage + Hexo 快速建立个人站点的过程。建站方式很多，依托的平台不尽相同，我选择GitPage+Hexo，其具有操作简单、维护成本低、文档详细等优势。网上已经有很多此类教程，此文并无过多创新，仅在记录自己建站中的操作步骤、相关参考文档等，力求简明扼要。 环境 mac os 10.11.6 node v8.14.0 yarn v1.13.0 git v2.10.1 hexo v3.8.0 next v7.0.1 GitHub创建Pages项目创建一个名称为{yourusername}.github.io的新仓库即可。其中的 yourusername 填写自己的用户名，Github会识别并自动将该仓库设为Github Pages。用户主页是唯一的，填其他名称只会被当成普通项目。 分支管理Github Pages部署分支设置中，一般分为： master 分支 gh-pages 分支（需要手动创建） 我的做法： blog-src 分支用于存放源码 master 分支用于部署 Hexo安装1$ yarn global add hexo-cli 创建hexo项目1$ hexo init [projectname] 拉取Github项目到本地1$ git clone https://github.com/yourusername/yourprojectname.git 把之前生成的hexo项目文件夹下的内容全部复制过来。 常用命令 hexo init [folder]: 新建项目 hexo new [post_title]: 新建文章 hexo generate [-d]: 生成静态文件 hexo serve [-p port]: 启动本地服务器。默认访问网址为： http://localhost:4000/ hexo deploy [-g]: 部署 hexo clean: 清除缓存 具体参考：hexo命令 更文步骤启本地服务 - 新建&amp;编写文章 - 生成静态文件 - 部署 具体参考：hexo写作 配置_config.yml主要是针对网站的基本信息配置，比如网站(副)标题、描述等。 具体参考：hexo配置 更换主题这里我采用hexo的next主题，另外还有非常多主题可供选择，详见hexo-themes 具体参考： theme-next 下载1$ git clone https://github.com/theme-next/hexo-theme-next themes/next 修改项目配置根目录下的_config.yml中，theme：next 修改主题配置这里罗列出我进行的主要个性化配置:（themes/next下的_config.yml） favicon footer menu scheme avatar auto_excerpt sidebar back2top social third party services 具体参考：theme-next doc]]></content>
+    <content type="text"><![CDATA[这里简要记录 GitPage + Hexo 快速建立个人站点的过程。建站方式很多，依托的平台不尽相同，我选择GitPage+Hexo，其具有操作简单、维护成本低、文档详细等优势。网上已经有很多此类教程，此文并无过多创新，仅在记录自己建站中的操作步骤、相关参考文档等，力求简明扼要。 环境 mac os 10.11.6 node v8.14.0 yarn v1.13.0 git v2.10.1 hexo v3.8.0 next v7.0.1 GitHub创建Pages项目创建一个名称为{yourusername}.github.io的新仓库即可。其中的 yourusername 填写自己的用户名，Github会识别并自动将该仓库设为Github Pages。用户主页是唯一的，填其他名称只会被当成普通项目。 分支管理Github Pages部署分支设置中，一般分为： master 分支 gh-pages 分支（需要手动创建） 我的做法： blog-src 分支用于存放源码 master 分支用于部署 Hexo安装1$ yarn global add hexo-cli 创建hexo项目1$ hexo init [projectname] 拉取Github项目到本地1$ git clone https://github.com/yourusername/yourprojectname.git 把之前生成的hexo项目文件夹下的内容全部复制过来。 常用命令 hexo init [folder]: 新建项目 hexo new [post_title]: 新建文章 hexo generate [-d]: 生成静态文件 hexo serve [-p port]: 启动本地服务器。默认访问网址为： http://localhost:4000/ hexo deploy [-g]: 部署 hexo clean: 清除缓存 具体参考：hexo命令 更文步骤启本地服务 - 新建&amp;编写文章 - 生成静态文件 - 部署 具体参考：hexo写作 配置_config.yml主要是针对网站的基本信息配置，比如网站(副)标题、描述等。 具体参考：hexo配置 更换主题这里我采用hexo的next主题，另外还有非常多主题可供选择，详见hexo-themes 具体参考： theme-next 下载1$ git clone https://github.com/theme-next/hexo-theme-next themes/next 修改项目配置根目录下的_config.yml中，theme：next 修改主题配置这里罗列出我进行的主要个性化配置:（themes/next下的_config.yml） favicon footer menu scheme avatar auto_excerpt sidebar back2top social third party services 具体参考：theme-next doc 备注 github添加公钥 如果是首次在一台机器进行部署（或更换了环境），记得在github添加公钥。具体参考：使用Github SSH Key以免去Hexo部署时输入密码]]></content>
       <categories>
         <category>Doc</category>
       </categories>
