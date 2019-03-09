@@ -109,3 +109,10 @@ $ git clone https://github.com/theme-next/hexo-theme-next themes/next
 - third party services
 
 > 具体参考：[theme-next doc](https://theme-next.org/docs/)
+
+## 备注
+
+- github添加公钥
+
+如果是首次在一台机器进行部署（或更换了环境），记得在github添加公钥。
+具体参考：[使用Github SSH Key以免去Hexo部署时输入密码](https://xuanwo.io/2015/02/07/generate-a-ssh-key/)
