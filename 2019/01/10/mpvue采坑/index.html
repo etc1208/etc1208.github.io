@@ -1,0 +1,1592 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="g0s8LnawPl">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这里我们并不会深入讲述小程序开发;这次分享刚刚走到小程序开发的大门口，门口有你、有我、有坑;鲁迅说过：世上本没有坑，踩的人多了就有了坑;  what is mpvue ?mpvue 是一个使用 Vue.js 开发小程序的前端框架。框架基于 Vue.js 核心，mpvue 修改了 Vue.js 的 runtime 和 compiler 实现，使其可以运行在小程序环境中，从而为小程序开发引入了整套">
+<meta name="keywords" content="原创,Vue,小程序,mpvue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="那些年我们一起追过的mpvue">
+<meta property="og:url" content="https://etc1208.github.io/2019/01/10/mpvue采坑/index.html">
+<meta property="og:site_name" content="杨赫的网络日志">
+<meta property="og:description" content="这里我们并不会深入讲述小程序开发;这次分享刚刚走到小程序开发的大门口，门口有你、有我、有坑;鲁迅说过：世上本没有坑，踩的人多了就有了坑;  what is mpvue ?mpvue 是一个使用 Vue.js 开发小程序的前端框架。框架基于 Vue.js 核心，mpvue 修改了 Vue.js 的 runtime 和 compiler 实现，使其可以运行在小程序环境中，从而为小程序开发引入了整套">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/1.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/2.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/3.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/4.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/5.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/6.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/7.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/8.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/9.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/10.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/11.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/12.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/13.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/14.png">
+<meta property="og:image" content="https://etc1208.github.io/images/mpvue/15.png">
+<meta property="og:updated_time" content="2019-03-11T18:37:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="那些年我们一起追过的mpvue">
+<meta name="twitter:description" content="这里我们并不会深入讲述小程序开发;这次分享刚刚走到小程序开发的大门口，门口有你、有我、有坑;鲁迅说过：世上本没有坑，踩的人多了就有了坑;  what is mpvue ?mpvue 是一个使用 Vue.js 开发小程序的前端框架。框架基于 Vue.js 核心，mpvue 修改了 Vue.js 的 runtime 和 compiler 实现，使其可以运行在小程序环境中，从而为小程序开发引入了整套">
+<meta name="twitter:image" content="https://etc1208.github.io/images/mpvue/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://etc1208.github.io/2019/01/10/mpvue采坑/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>那些年我们一起追过的mpvue | 杨赫的网络日志</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨赫的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">FE development engineer</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">18</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">3</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">11</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2019/01/10/mpvue采坑/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨赫">
+      <meta itemprop="description" content="曾经的北邮土著 | 如今的前端开发 <br/>爱健身 | 爱狗子">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨赫的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">那些年我们一起追过的mpvue
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-01-10 15:35:00" itemprop="dateCreated datePublished" datetime="2019-01-10T15:35:00+08:00">2019-01-10</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-12 02:37:00" itemprop="dateModified" datetime="2019-03-12T02:37:00+08:00">2019-03-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>这里我们并不会深入讲述小程序开发;<br>这次分享刚刚走到小程序开发的大门口，门口有你、有我、有坑;<br>鲁迅说过：世上本没有坑，踩的人多了就有了坑;</p>
+</blockquote>
+<h1 id="what-is-mpvue"><a href="#what-is-mpvue" class="headerlink" title="what is mpvue ?"></a>what is mpvue ?</h1><p>mpvue 是一个使用 Vue.js 开发小程序的前端框架。框架基于 Vue.js 核心，mpvue 修改了 Vue.js 的 runtime 和 compiler 实现，使其可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。</p>
+<h2 id="全局安装-vue-cli"><a href="#全局安装-vue-cli" class="headerlink" title="全局安装 vue-cli"></a>全局安装 vue-cli</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install --global vue-cli</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>vue cli 之于 vue  <->  creact-react-app 之于 react </-></p>
+</blockquote>
+<ul>
+<li>题外话：vue-cli &amp; @vue/cli *</li>
+</ul>
+<ul>
+<li>两者其实是一个东西</li>
+<li>从3.0开始：从 vue-cli 更名为 @vue/cli</li>
+<li>如果你使用vue cli 3，官方要求：“ Vue CLI requires Node.js version 8.9 or above (8.11.0+ recommended) ”</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// cli 2</span><br><span class="line">npm install -g vue-cli </span><br><span class="line"></span><br><span class="line">// cli 3</span><br><span class="line">npm install -g @vue/cli</span><br></pre></td></tr></table></figure>
+<p>两个版本的详细区别这里不做重点，我们只说创建项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// cli 2</span><br><span class="line">vue init &lt;template-name&gt; &lt;project-name&gt;    </span><br><span class="line"></span><br><span class="line">// cli 3</span><br><span class="line">vue create &lt;project-name&gt;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/mpvue/1.png" alt></p>
+<p>因为mpvue官方提供的是基于模板(template)初始化项目，而vue cli3不再直接支持；同时官方也为我们提供了在3的基础上使用template的方式：安装一个全局桥</p>
+<h2 id="初始化mpvue"><a href="#初始化mpvue" class="headerlink" title="初始化mpvue"></a>初始化mpvue</h2><ul>
+<li><ol>
+<li>创建一个基于 mpvue-quickstart 模板的新项目</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// 新手一路回车选择默认就可以了</span><br><span class="line">$ vue init mpvue/mpvue-quickstart my-project</span><br></pre></td></tr></table></figure>
+<ul>
+<li><ol start="2">
+<li>安装依赖</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ cd my-project</span><br><span class="line">$ npm install</span><br><span class="line">$ npm run dev</span><br></pre></td></tr></table></figure>
+<p><img src="/images/mpvue/2.png" alt></p>
+<ul>
+<li>如果你和我一样使用nvm管理本地node版本，必须手动nvm use xx切换一次 *（e.g.哪怕当前就是在node 8版本下也要手动执行一次nvm use 8），否则初始化mpvue项目时就会失败：报错 vue-cli · [.eslintrc.js] Missing helper: “if_eq”</li>
+</ul>
+<h2 id="生成目录结构"><a href="#生成目录结构" class="headerlink" title="生成目录结构"></a>生成目录结构</h2><p><img src="/images/mpvue/3.png" alt></p>
+<h2 id="导入微信开发者工具"><a href="#导入微信开发者工具" class="headerlink" title="导入微信开发者工具"></a>导入微信开发者工具</h2><p><img src="/images/mpvue/4.png" alt></p>
+<blockquote>
+<p>如果我们按照官方指引一步步导入，是不能正常跑起来项目的，会报错：<br>未找到入口 app.json 文件，或者文件读取失败，请检查后重新编译。</p>
+</blockquote>
+<ul>
+<li>原因在：project.config.json *</li>
+</ul>
+<ul>
+<li>这个文件是用来存储项目配置的，每次微信开发者工具导入mpvue项目后会依据这个配置文件去加载项目；</li>
+<li>那么我们看这个文件里有这样一条配置项：”miniprogramRoot”: “dist”,</li>
+<li>它就是告诉微信开发者工具：这个目录下有我打包好的微信小程序，你快去加载</li>
+</ul>
+<ul>
+<li>补充：app.json是什么 *</li>
+</ul>
+<p><img src="/images/mpvue/5.png" alt></p>
+<ul>
+<li><p>app.json 是当前小程序的全局配置，包括了小程序的所有页面路径、界面表现、网络超时时间、底部 tab 等；</p>
+</li>
+<li><p>它是必须的！（而我们去看打包好的dist目录下哪里有app.json？？只有一个wx目录，自然会报错找不到）</p>
+</li>
+</ul>
+<p><img src="/images/mpvue/6.png" alt><br><img src="/images/mpvue/7.png" alt></p>
+<p>解决办法：更改project.config.json中的miniprogramRoot项为”dist/wx”，这样微信开发者工具就会自动去这个目录下加载小程序所需资源；亦或者直接导入dist/wx目录自然也是可以的</p>
+<p><img src="/images/mpvue/8.png" alt></p>
+<blockquote>
+<p>补充：只有直接导入dist/wx目录才能使用预览功能，原因未知</p>
+</blockquote>
+<h1 id="页面配置"><a href="#页面配置" class="headerlink" title="页面配置"></a>页面配置</h1><p><img src="/images/mpvue/9.png" alt></p>
+<ul>
+<li>app.json中的pages字段设定了当前小程序包含的页面（相当于路由），其中以^开头的会作为小程序首页对待，否则默认出现在pages数组的第一项为首页；</li>
+<li>我们看到对应pages目录下分布着一个个页面，每个里面都有一个main.js，并且内容极其相似甚至完全一样；</li>
+</ul>
+<p>另外，官方Q&amp;A中关于页面配置提到一点：</p>
+<p><img src="/images/mpvue/10.png" alt></p>
+<p>mpvue本身页面配置的缺陷：</p>
+<p>  •    mpvue新增页面或者模块的时候必须重新npm run dev才可以进行更新，不支持热更新;（官方告诉我们要忍）</p>
+<p>  •    mpvue所有页面模块除了.vue文件外，都需要写一个很类似的main.js，重复工作;</p>
+<p>推荐一个第三方的插件：mpvue-entry</p>
+<p>该插件使得我们新建页面时只需要一个.vue文件，并且将页面路由通过一个js文件统一配置</p>
+<p>优点：集中式页面配置，自动生成各页面的入口文件，优化目录结构</p>
+<h1 id="mpvue-entry"><a href="#mpvue-entry" class="headerlink" title="mpvue-entry"></a>mpvue-entry</h1><p>根据官方的readme，我们一步步来：</p>
+<ul>
+<li>安装：npm i mpvue-entry -D</li>
+<li>使用<ul>
+<li>修改webpack.base.conf.js</li>
+<li>新增pages.js配置文件</li>
+<li>调整原来的pages目录结构（去掉冗余的main.js）</li>
+<li>对应修改app.json的pages配置！！！</li>
+</ul>
+</li>
+</ul>
+<p>在官方readme里我们注意到：</p>
+<blockquote>
+<p>v1.5.0 版本开始支持 mpvue-loader@^1.1.0 版本，新版 src 目录下需存在 app.json 文件，预计 v2.0 版本不再兼容旧版 mpvue-loader</p>
+</blockquote>
+<p>编译通过，导入微信开发者工具,报错了：</p>
+<ul>
+<li>未找到入口 app.json 文件，或者文件读取失败，请检查后重新编译。*</li>
+</ul>
+<p>仔细查看：dist/wx中的app.json怎么搬家跑到上层去了？！</p>
+<p>原因有二：</p>
+<ul>
+<li>官方指引中让务必删去的配置部分导致本该复制到dist/wx目录下的app.json没有被复制；</li>
+<li>mpvue-entry帮我们在dist目录下生成了一个app.json</li>
+</ul>
+<ul>
+<li>怎么办呢？ *</li>
+</ul>
+<p>办法一（不能完美解决）：先把刚刚“务必删去”的配置部分加回来；<br>结果：存在两个app.json,而且还稍有不同<br>① mpvue-entry帮我们在dist目录下生成的app.json多了个subPackages项:分包；稍后会讲到。<br>② mpvue-loader帮我们在dist/wx下生成了一个app.json,就是src/app.json的复制品；<br>③ pages.js中关于单页面的配置(标题等)不生效</p>
+<p>对于单个页面的配置：官方提供的方法是: 通过在每个page的main.js中export独立的配置：    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  config: &#123;</span><br><span class="line">    navigationBarTitleText: &apos;第二页标题&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>（main.js都给干掉了，pass！并且我测试了一下在不接入mpvue-entry的情况下这个方法也是无效的，需要在每个page目录下新建一个main.json文件进行配置）</p>
+<p>但还是有办法的：<br>通过调用 wx API 动态设置；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">onLoad() &#123;</span><br><span class="line">  wx.setNavigationBarTitle(&#123;</span><br><span class="line">‘title’: ‘xxxx’</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>真正的解决办法：mpvue_entry应该支持构建路径可配置啥的，于是往下翻文档，果不其然：</p>
+<p><img src="/images/mpvue/11.png" alt></p>
+<p>一切似乎在朝着更好的方向发展：只有一个app.json了 &amp; 单页面的配置生效了</p>
+<p>但我们仔细看在dist/wx下构建出的app.json是和src/app.json一模一样的（它实际是mpvue-loader复制过去的，覆盖了mpvue-entry构建出来的app.json）</p>
+<p>！！这就解释了为何mpvue-entry要求务必删去webpack.base.conf.js中复制json的配置</p>
+<h1 id="分包"><a href="#分包" class="headerlink" title="分包"></a>分包</h1><p>刚刚我们跳过了一个概念：分包。它的功效类比于webpack打包出来的多个chunk</p>
+<ul>
+<li>每个使用分包小程序必定含有一个主包。主包就是包含启动页面的包。</li>
+<li>在小程序启动时，默认会下载主包进入首页，当用户进入分包内某个页面时，客户端才会把对应分包下载下来，下载完成后再进行展示。</li>
+<li>对小程序进行分包，可以优化小程序首屏时间</li>
+</ul>
+<p><img src="/images/mpvue/12.png" alt><br><img src="/images/mpvue/13.png" alt></p>
+<h1 id="接入vuex"><a href="#接入vuex" class="headerlink" title="接入vuex"></a>接入vuex</h1><p><img src="/images/mpvue/14.png" alt></p>
+<ul>
+<li>1.安装依赖：yarn add vuex</li>
+<li>2.state &amp; getters &amp; mutations &amp;<br>actions等基础配置</li>
+<li>3.入口处添加store</li>
+</ul>
+<p><img src="/images/mpvue/15.png" alt></p>
+<p><em>补充：Logger &amp; 严格模式</em></p>
+<p>1.Logger plugin</p>
+<p>因为在微信开发者工具中没有 vue-devtools，最好在开发模式下配置vuex的logger插件，方便观察状态变化；</p>
+<p>2.严格模式</p>
+<p>在严格模式下，无论何时发生了状态变更且不是由 mutation 函数引起的，将会抛出错误。这能保证所有的状态变更都能被调试工具跟踪到。</p>
+<blockquote>
+<p>不要在发布环境下启用严格模式！<br>严格模式会深度监测状态树来检测不合规的状态变更——请确保在发布环境下关闭严格模式，以避免性能损失。</p>
+</blockquote>
+<ul>
+<li>如果你并未接入mpvue-entry，最初的项目中接入vuex后，是会遇到问题的：</li>
+<li>入口处无法通过new Vue({store, …App})这种形式传入store</li>
+<li>必须在每个page下的main.js中注入才能生效;(也有绕过去的办法，就是在入口处通过Vue.prototype.$store = store绑定store，这样在每个子page中就可以访问到store了</li>
+</ul>
+<h1 id="网络请求"><a href="#网络请求" class="headerlink" title="网络请求"></a>网络请求</h1><blockquote>
+<p>说明：微信小程序的 js运行环境和浏览器不同，页面的脚本逻辑是在JsCore中运行，JsCore是一个没有窗口对象的环境，访问不了window，也没有XmlhttpRequest等对象；所以像jquery 、zepto、axios这些在小程序中都不能直接使用</p>
+</blockquote>
+<ul>
+<li>方案一： 封装wx.request（不再赘述，参考微信官方文档）</li>
+<li>方案二：Flyio</li>
+</ul>
+<p>一个支持所有JS运行环境的基于Promise的、支持请求转发、强大的http请求库。可以在多端最大限度的实现代码复用。</p>
+<p>目前支持的平台包括：Node.js 、微信小程序 、Weex 、React Native 、Quick App 和浏览器。</p>
+<h1 id="番外"><a href="#番外" class="headerlink" title="番外"></a>番外</h1><h2 id="不支持部分复杂的-JavaScript-渲染表达式"><a href="#不支持部分复杂的-JavaScript-渲染表达式" class="headerlink" title="不支持部分复杂的 JavaScript 渲染表达式"></a>不支持部分复杂的 JavaScript 渲染表达式</h2><p>官方举例是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 这种就不支持，建议写 computed</span><br><span class="line">&lt;p&gt;&#123;&#123; message.split(&apos;&apos;).reverse().join(&apos;&apos;) &#125;&#125;&lt;/p&gt;</span><br><span class="line"></span><br><span class="line">// 但写在 @event 里面的表达式是都支持的，因为这部分的计算放在了 vdom 里面</span><br><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li v-for=&quot;item in list&quot;&gt;</span><br><span class="line">        &lt;div @click=&quot;clickHandle(item, index, $event)&quot;&gt;&#123;&#123; item.value &#125;&#125;&lt;/p&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">比如&lt;h4&gt;当前值：&#123;&#123;number&#125;&#125;&lt;/h4&gt;是可以的；</span><br><span class="line">&lt;h4&gt;&#123;&#123;`当前值：$&#123;number&#125;`&#125;&#125;&lt;/h4&gt;就会报错: number is undefined</span><br></pre></td></tr></table></figure>
+<h2 id="页面关闭后，重进数据状态并未初始化"><a href="#页面关闭后，重进数据状态并未初始化" class="headerlink" title="页面关闭后，重进数据状态并未初始化"></a>页面关闭后，重进数据状态并未初始化</h2><p>这个是mpvue已知的问题，开发者正在解决（但其实已经很久了仍未解决）<br>解决办法就是利用一些生命周期钩子重新初始化一次数据，如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">onHide() &#123;</span><br><span class="line">   // 退出页面时候</span><br><span class="line">   this.reset()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h2><ul>
+<li><p>created：小程序加载后，所有页面的created钩子都会被调用，而且只调用这一次；可以用小程序的onLoad钩子代替（在每个页面进入后执行一次）</p>
+</li>
+<li><p>mounted：page A -&gt; page B -&gt; page A，此时页面A的mounted钩子不会被触发，因为小程序的历史页面不会被销毁；如果有需要每次页面展示都要调用的逻辑，可以使用小程序的onShow代替</p>
+</li>
+</ul>
+<h2 id="小心后台页面的js"><a href="#小心后台页面的js" class="headerlink" title="小心后台页面的js"></a>小心后台页面的js</h2><p>小程序中可能有n个页面，所有的这些页面，虽然都拥有自己的webview， 但是却共享同一个js运行环境。当你从A跳到B，A的定时器等js操作仍在进行，并且不会被销毁，并且会抢占B页面的资源。</p>
+<p>在h5的环境中，当我们跳转到其他页面，老页面的js环境会被自动销毁，定时器什么都被销毁掉了，因此我们不需要关心老页面中还有哪些js代码可能还会执行。但是在小程序中，我们必须手动的“清理”掉这样的代码。</p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/tags/小程序/" rel="tag"># 小程序</a>
+          
+            <a href="/tags/mpvue/" rel="tag"># mpvue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/30/next-js初探/" rel="next" title="next.js初探">
+                <i class="fa fa-chevron-left"></i> next.js初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="杨赫">
+            
+              <p class="site-author-name" itemprop="name">杨赫</p>
+              <div class="site-description motion-element" itemprop="description">曾经的北邮土著 | 如今的前端开发 <br>爱健身 | 爱狗子</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/etc1208" title="GitHub &rarr; https://github.com/etc1208" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:599068284@qq.com" title="E-Mail &rarr; mailto:599068284@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/2707541947/profile?rightmod=1&wvr=6&mod=personinfo" title="Weibo &rarr; https://weibo.com/2707541947/profile?rightmod=1&wvr=6&mod=personinfo" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#what-is-mpvue"><span class="nav-number">1.</span> <span class="nav-text">what is mpvue ?</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#全局安装-vue-cli"><span class="nav-number">1.1.</span> <span class="nav-text">全局安装 vue-cli</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化mpvue"><span class="nav-number">1.2.</span> <span class="nav-text">初始化mpvue</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生成目录结构"><span class="nav-number">1.3.</span> <span class="nav-text">生成目录结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入微信开发者工具"><span class="nav-number">1.4.</span> <span class="nav-text">导入微信开发者工具</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#页面配置"><span class="nav-number">2.</span> <span class="nav-text">页面配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#mpvue-entry"><span class="nav-number">3.</span> <span class="nav-text">mpvue-entry</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#分包"><span class="nav-number">4.</span> <span class="nav-text">分包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接入vuex"><span class="nav-number">5.</span> <span class="nav-text">接入vuex</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#网络请求"><span class="nav-number">6.</span> <span class="nav-text">网络请求</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#番外"><span class="nav-number">7.</span> <span class="nav-text">番外</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#不支持部分复杂的-JavaScript-渲染表达式"><span class="nav-number">7.1.</span> <span class="nav-text">不支持部分复杂的 JavaScript 渲染表达式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#页面关闭后，重进数据状态并未初始化"><span class="nav-number">7.2.</span> <span class="nav-text">页面关闭后，重进数据状态并未初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生命周期钩子"><span class="nav-number">7.3.</span> <span class="nav-text">生命周期钩子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小心后台页面的js"><span class="nav-number">7.4.</span> <span class="nav-text">小心后台页面的js</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user-circle"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨赫</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,0" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<style>
+  .copy-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #333;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+    
+    user-select: none;
+    outline: 0;
+  }
+
+  .highlight-wrap .copy-btn {
+    transition: opacity .3s ease-in-out;
+    opacity: 0;
+    padding: 2px 6px;
+    position: absolute;
+    
+      right: 4px;
+      top: 8px;
+    
+  }
+
+  .highlight-wrap:hover .copy-btn,
+  .highlight-wrap .copy-btn:focus {
+    opacity: 1;
+  }
+
+  .highlight-wrap {
+    position: relative;
+  }
+</style>
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('Copied');
+        else $(this).text('Copy failed');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('Copy');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+</body>
+</html>

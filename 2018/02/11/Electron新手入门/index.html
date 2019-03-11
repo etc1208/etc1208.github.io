@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="g0s8LnawPl">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="这篇分享旨在初步介绍Electron，重点介绍其中的几个主要概念，让没有接触过Electron的开发者有一个入门的基础认知。 如果你还未接触过Electron，请看之前某乎上一篇装逼的Title：感谢 Electron，我现在有了两个身份：前端开发 和 桌面客户端开发。 基本概念是什么 官方概念：Electron是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程">
+<meta name="keywords" content="Electron,原创">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Electron新手入门">
+<meta property="og:url" content="https://etc1208.github.io/2018/02/11/Electron新手入门/index.html">
+<meta property="og:site_name" content="杨赫的网络日志">
+<meta property="og:description" content="这篇分享旨在初步介绍Electron，重点介绍其中的几个主要概念，让没有接触过Electron的开发者有一个入门的基础认知。 如果你还未接触过Electron，请看之前某乎上一篇装逼的Title：感谢 Electron，我现在有了两个身份：前端开发 和 桌面客户端开发。 基本概念是什么 官方概念：Electron是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://etc1208.github.io/images/electron/electron.png">
+<meta property="og:image" content="https://etc1208.github.io/images/electron/electronProcess.png">
+<meta property="og:image" content="https://etc1208.github.io/images/electron/remote.png">
+<meta property="og:image" content="https://etc1208.github.io/images/electron/debug-render.jpg">
+<meta property="og:image" content="https://etc1208.github.io/images/electron/debug-main.jpg">
+<meta property="og:updated_time" content="2019-03-11T17:13:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Electron新手入门">
+<meta name="twitter:description" content="这篇分享旨在初步介绍Electron，重点介绍其中的几个主要概念，让没有接触过Electron的开发者有一个入门的基础认知。 如果你还未接触过Electron，请看之前某乎上一篇装逼的Title：感谢 Electron，我现在有了两个身份：前端开发 和 桌面客户端开发。 基本概念是什么 官方概念：Electron是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程">
+<meta name="twitter:image" content="https://etc1208.github.io/images/electron/electron.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://etc1208.github.io/2018/02/11/Electron新手入门/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Electron新手入门 | 杨赫的网络日志</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨赫的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">FE development engineer</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">18</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">3</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">11</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2018/02/11/Electron新手入门/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨赫">
+      <meta itemprop="description" content="曾经的北邮土著 | 如今的前端开发 <br/>爱健身 | 爱狗子">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨赫的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Electron新手入门
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2018-02-11 14:40:00" itemprop="dateCreated datePublished" datetime="2018-02-11T14:40:00+08:00">2018-02-11</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-12 01:13:24" itemprop="dateModified" datetime="2019-03-12T01:13:24+08:00">2019-03-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/笔记/" itemprop="url" rel="index"><span itemprop="name">笔记</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/images/electron/electron.png" alt="Electron"></p>
+<p>这篇分享旨在初步介绍Electron，重点介绍其中的几个主要概念，让没有接触过Electron的开发者有一个入门的基础认知。</p>
+<p>如果你还未接触过Electron，请看之前某乎上一篇装逼的Title：<code>感谢 Electron，我现在有了两个身份：前端开发 和 桌面客户端开发</code>。</p>
+<h1 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h1><h2 id="是什么"><a href="#是什么" class="headerlink" title="是什么"></a>是什么</h2><blockquote>
+<p>官方概念：Electron是由Github开发，用HTML，CSS和JavaScript来构建跨平台桌面应用程序的一个开源库。 Electron通过将Chromium和Node.js合并到同一个运行时环境中，并将其打包为Mac，Windows和Linux系统下的应用来实现这一目的。</p>
+</blockquote>
+<blockquote>
+<blockquote>
+<p>通俗理解：让你用纯 <code>JavaScript</code> 调用丰富的<code>原生 APIs</code> 创造桌面应用。使用 web 页面作为 GUI，你能把它看作一个被 JavaScript 控制的，<code>精简版的 Chromium 浏览器</code>。</p>
+</blockquote>
+</blockquote>
+<h2 id="依赖项更新（Chromium-amp-Node）"><a href="#依赖项更新（Chromium-amp-Node）" class="headerlink" title="依赖项更新（Chromium &amp; Node）"></a>依赖项更新（Chromium &amp; Node）</h2><ul>
+<li><p>Electron中Chromium的版本通常会在Chromium发行新的稳定版后的一到两周之内更新，具体时间根据升级所需的工作量而定。</p>
+</li>
+<li><p>为了使版本更加稳定，Electron通常会在Node.js发布了新版本的一个月之后再更新。</p>
+</li>
+</ul>
+<blockquote>
+<p>补充：为了保持Electron的小巧，Electron只用了<code>Chromium的渲染库</code>而不是其全部组件。 这使得升级Chromium更加容易，但也意味着Electron缺少了Google Chrome里的一些浏览器相关的特性。</p>
+</blockquote>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
+<li><p>Web 技术</p>
+<ul>
+<li>基于 Chromium 和 Node.js, 让你可以使用 HTML, CSS 和 JavaScript 构建应用。</li>
+</ul>
+</li>
+<li><p>跨平台</p>
+<ul>
+<li>兼容 Mac, Windows 和 Linux， 它构建的应用可在这三个操作系统上面运行。</li>
+</ul>
+</li>
+</ul>
+<h2 id="解决哪些困难"><a href="#解决哪些困难" class="headerlink" title="解决哪些困难"></a>解决哪些困难</h2><ul>
+<li><a href="https://electronjs.org/docs/api/auto-updater" target="_blank" rel="noopener">自动更新</a>: autoUpdater</li>
+<li><a href="https://electronjs.org/docs/api/menu" target="_blank" rel="noopener">原生的菜单和通知</a>: menu </li>
+<li><a href="https://electronjs.org/docs/api/crash-reporter" target="_blank" rel="noopener">崩溃报告</a>: crashReporter</li>
+<li><a href="https://electronjs.org/docs/api/content-tracing" target="_blank" rel="noopener">调试和性能分析</a>: contentTracing</li>
+<li>…</li>
+</ul>
+<h2 id="与web项目的主要区别"><a href="#与web项目的主要区别" class="headerlink" title="与web项目的主要区别"></a>与web项目的主要区别</h2><p>electron核心可以分成2个部分:<code>主进程</code>和<code>渲染进程</code>。</p>
+<ul>
+<li>主进程连接着操作系统和渲染进程；</li>
+<li>渲染进程就是我们所熟悉前端环境；</li>
+<li>传统的web环境不能对系统进行操作，而electron相当于node环境，我们可以在项目里使用所有的node api；</li>
+</ul>
+<h2 id="目录结构抽象"><a href="#目录结构抽象" class="headerlink" title="目录结构抽象"></a>目录结构抽象</h2><p>your-app/<br>|── package.json<br>|── main.js<br>|── index.html</p>
+<h1 id="主进程-amp-渲染进程"><a href="#主进程-amp-渲染进程" class="headerlink" title="主进程 &amp; 渲染进程"></a>主进程 &amp; 渲染进程</h1><p><img src="/images/electron/electronProcess.png" alt="主进程&amp;渲染进程"></p>
+<ul>
+<li><p>运行 package.json 的 main 脚本的进程被称为主进程。 在主进程中运行的脚本通过创建web页面来展示用户界面。 一个 Electron 应用总是有且只有一个主进程；</p>
+</li>
+<li><p>Electron 中的每个 web 页面运行在它自己的渲染进程中。</p>
+</li>
+<li><p>在普通的浏览器中，web页面通常在一个沙盒环境中运行，不被允许去接触原生的资源。 然而 Electron 的用户在 Node.js 的 API 支持下可以在页面中和操作系统进行一些底层交互。</p>
+</li>
+</ul>
+<h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><ul>
+<li><p>主进程使用 BrowserWindow 实例创建页面。 每个 BrowserWindow 实例都在自己的渲染进程里运行页面；</p>
+</li>
+<li><p>主进程管理所有的web页面和它们对应的渲染进程；</p>
+</li>
+<li><p>页面中调用与 GUI 相关的原生 API 是不被允许的，对应的渲染进程必须与主进程进行通讯，请求主进程进行相关的 GUI 操作；</p>
+</li>
+</ul>
+<h2 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h2><p>1.主进程操作</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;BrowserWindow&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"><span class="comment">// 主进程创建web页面</span></span><br><span class="line"><span class="keyword">let</span> someWindow = <span class="keyword">new</span> BrowserWindow(winOpts)</span><br><span class="line"><span class="comment">// 加载本地的文件</span></span><br><span class="line">someWindow.loadURL(<span class="string">'file://'</span> + __dirname + <span class="string">'/index.html'</span>)</span><br></pre></td></tr></table></figure>
+<p>2.渲染进程操作<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;BrowserWindow&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>).remote</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> modalPath = <span class="string">'xxxxxx'</span></span><br><span class="line"><span class="keyword">let</span> win = <span class="keyword">new</span> BrowserWindow(&#123; <span class="attr">width</span>: <span class="number">400</span>, <span class="attr">height</span>: <span class="number">320</span> &#125;)</span><br><span class="line"></span><br><span class="line">win.on(<span class="string">'close'</span>, () =&gt; &#123; win = <span class="literal">null</span> &#125;)</span><br><span class="line">win.loadURL(modalPath)</span><br><span class="line">win.show()</span><br></pre></td></tr></table></figure></p>
+<h1 id="进程间通信"><a href="#进程间通信" class="headerlink" title="进程间通信"></a>进程间通信</h1><p><code>在web页面，不允许调用原生GUI相关的API，因为在web页面管理原生GUI资源是很危险的，会很容易泄露资源。如果你想在web页面施行GUI操作，web页面的渲染进程必须要与主进程通信，请求主进程来完成这些操作。</code></p>
+<h2 id="ipc模块（渲染进程-gt-主进程）"><a href="#ipc模块（渲染进程-gt-主进程）" class="headerlink" title="ipc模块（渲染进程 -&gt; 主进程）"></a>ipc模块（渲染进程 -&gt; 主进程）</h2><p>使用<code>ipcMain</code>和<code>ipcRenderer</code>模块，在渲染进程中使用ipcRender模块向主进程发送消息，主进程中ipcMain接收消息，进行操作;如果需要反馈，则通知渲染进程，渲染进程根据接收的内容执行相应的操作。</p>
+<p>1.主进程<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;ipcMain&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"></span><br><span class="line">ipcMain.on(<span class="string">'close-window'</span>, (evt, data) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data)</span><br><span class="line">    evt.sender.send(<span class="string">'replymsg'</span>, otherData);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>2.渲染进程<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;ipcRenderer&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"></span><br><span class="line">ipcRender.send(<span class="string">'close-window'</span>, data);</span><br><span class="line">ipcRender.on(<span class="string">'replaymsg'</span>, (evt, otherData) =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(otherData)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>不过切忌用 <code>ipc</code> 传递大量的数据，会有很大的性能问题，严重会让你整个应用卡住。</p>
+</blockquote>
+<h2 id="remote模块"><a href="#remote模块" class="headerlink" title="remote模块"></a>remote模块</h2><p>在渲染进程中使用主进程模块。为渲染进程和主进程通信提供了一种简单方法。</p>
+<p>使用 remote 模块, 你可以调用 main 进程对象的方法, 而不必显式发送进程间消息。</p>
+<p><img src="/images/electron/remote.png" alt="remote模块"></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 渲染进程中</span></span><br><span class="line"><span class="keyword">const</span> &#123;BrowserWindow&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>).remote</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> win = <span class="keyword">new</span> BrowserWindow(&#123;<span class="attr">width</span>: <span class="number">800</span>, <span class="attr">height</span>: <span class="number">600</span>&#125;)</span><br><span class="line">win.loadURL(<span class="string">'https://ke.youdao.com'</span>)</span><br></pre></td></tr></table></figure>
+<h2 id="webContents（主进程-gt-渲染进程）"><a href="#webContents（主进程-gt-渲染进程）" class="headerlink" title="webContents（主进程 -&gt; 渲染进程）"></a>webContents（主进程 -&gt; 渲染进程）</h2><p>主进程主动向渲染进程发送消息。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.webviewWindow.webContents.send(<span class="string">'main-process-messages'</span>);</span><br></pre></td></tr></table></figure></p>
+<h2 id="ipcRenderer-sendTo（渲染进程-gt-渲染进程）"><a href="#ipcRenderer-sendTo（渲染进程-gt-渲染进程）" class="headerlink" title="ipcRenderer.sendTo（渲染进程 -&gt; 渲染进程）"></a>ipcRenderer.sendTo（渲染进程 -&gt; 渲染进程）</h2><p>渲染进程互相发送通信。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ipcRenderer.sendTo(windowId, <span class="string">'xxx-message'</span>, <span class="string">'data'</span>)</span><br></pre></td></tr></table></figure></p>
+<h1 id="菜单（Menu-amp-MenuItem）"><a href="#菜单（Menu-amp-MenuItem）" class="headerlink" title="菜单（Menu &amp; MenuItem）"></a>菜单（Menu &amp; MenuItem）</h1><p>对桌面应用来说，另一个重要的概念就是菜单栏。分为上下文菜单（右击菜单），托盘菜单（绑定到托盘图标），应用菜单（在OS X上）等多种。</p>
+<p>1.主进程中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;app, Menu&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> template = [</span><br><span class="line">    &#123;</span><br><span class="line">      label: <span class="string">'Edit'</span>,</span><br><span class="line">      submenu: [</span><br><span class="line">        &#123;<span class="attr">role</span>: <span class="string">'undo'</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">role</span>: <span class="string">'redo'</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">type</span>: <span class="string">'separator'</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">role</span>: <span class="string">'cut'</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">role</span>: <span class="string">'copy'</span>&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      role: <span class="string">'window'</span>,</span><br><span class="line">      submenu: [</span><br><span class="line">        &#123;<span class="attr">role</span>: <span class="string">'minimize'</span>&#125;,</span><br><span class="line">        &#123;<span class="attr">role</span>: <span class="string">'close'</span>&#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      role: <span class="string">'help'</span>,</span><br><span class="line">      submenu: [</span><br><span class="line">        &#123;</span><br><span class="line">          label: <span class="string">'Learn More'</span>,</span><br><span class="line">          click () &#123; <span class="built_in">require</span>(<span class="string">'electron'</span>).shell.openExternal(<span class="string">'https://electronjs.org'</span>) &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">const</span> menu = Menu.buildFromTemplate(template)</span><br><span class="line">  Menu.setApplicationMenu(menu)</span><br></pre></td></tr></table></figure></p>
+<p>2.渲染进程中<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123;remote&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"><span class="keyword">const</span> &#123;Menu, MenuItem&#125; = remote</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> menu = <span class="keyword">new</span> Menu()</span><br><span class="line">menu.append(<span class="keyword">new</span> MenuItem(&#123;<span class="attr">label</span>: <span class="string">'MenuItem1'</span>, click() &#123; <span class="built_in">console</span>.log(<span class="string">'item 1 clicked'</span>) &#125;&#125;))</span><br><span class="line">menu.append(<span class="keyword">new</span> MenuItem(&#123;<span class="attr">type</span>: <span class="string">'separator'</span>&#125;))</span><br><span class="line">menu.append(<span class="keyword">new</span> MenuItem(&#123;<span class="attr">label</span>: <span class="string">'MenuItem2'</span>, <span class="attr">type</span>: <span class="string">'checkbox'</span>, <span class="attr">checked</span>: <span class="literal">true</span>&#125;))</span><br></pre></td></tr></table></figure></p>
+<h1 id="Shell"><a href="#Shell" class="headerlink" title="Shell"></a>Shell</h1><p>shell 模块提供与桌面集成相关的功能, 使用默认应用程序管理文件和 url。</p>
+<ul>
+<li>在文件管理器中显示给定的文件</li>
+<li>将给定的文件移动到垃圾箱</li>
+<li>播放哔哔的声音</li>
+<li>…</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 打开系统文件目录</span></span><br><span class="line"><span class="keyword">const</span> &#123;shell&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">'os'</span>)</span><br><span class="line"></span><br><span class="line">shell.showItemInFolder(os.homedir())</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用默认浏览器打开url</span></span><br><span class="line"><span class="keyword">const</span> &#123;shell&#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"></span><br><span class="line">shell.openExternal(<span class="string">'http://electron.atom.io'</span>)</span><br></pre></td></tr></table></figure>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><h2 id="渲染进程调试"><a href="#渲染进程调试" class="headerlink" title="渲染进程调试"></a>渲染进程调试</h2><p>最广泛使用来调试指定渲染进程的工具是Chromium的开发者工具集，可以通过编程的方式在BrowserWindow的webContents中调用<code>openDevTool()</code>API来打开它们或者注册快捷键。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; BrowserWindow &#125; = <span class="built_in">require</span>(<span class="string">'electron'</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> win = <span class="keyword">new</span> BrowserWindow()</span><br><span class="line">win.webContents.openDevTools()</span><br><span class="line"></span><br><span class="line"><span class="comment">// 或者</span></span><br><span class="line">globalShortcut.register(<span class="string">'Alt+CommandOrControl+I'</span>, () =&gt; &#123;</span><br><span class="line">  BrowserWindow.getFocusedWindow().toggleDevTools();</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p><img src="/images/electron/debug-render.jpg" alt="debug-render-process"></p>
+<h2 id="主进程调试（vscode）"><a href="#主进程调试（vscode）" class="headerlink" title="主进程调试（vscode）"></a>主进程调试（vscode）</h2><p>这里我们介绍如何利用vscode来调试Electron主进程。</p>
+<p>步骤：</p>
+<ol>
+<li>使用vscode打开electron项目</li>
+<li>点击debug 添加配置</li>
+<li>打开launch.json点击右下角的添加配置，添加“electron 主”</li>
+<li>在主进程（main.js）添加断点，点击“启动”进行调试<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 修改launch.json文件最终为</span></span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"0.2.0"</span>,</span><br><span class="line">  <span class="string">"configurations"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"type"</span>: <span class="string">"node"</span>,</span><br><span class="line">      <span class="string">"request"</span>: <span class="string">"launch"</span>,</span><br><span class="line">      <span class="string">"name"</span>: <span class="string">"Electron Main"</span>,</span><br><span class="line">      <span class="string">"runtimeExecutable"</span>: <span class="string">"$&#123;workspaceFolder&#125;/node_modules/.bin/electron"</span>,</span><br><span class="line">      <span class="string">"program"</span>: <span class="string">"$&#123;workspaceFolder&#125;/main.js"</span>,</span><br><span class="line">      <span class="string">"protocol"</span>: <span class="string">"inspector"</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>注意：”protocol”: “legacy” //添加默认的协议是legacy，这个协议导致不进入断点，改为：“inspector”</p>
+</blockquote>
+<p><img src="/images/electron/debug-main.jpg" alt="debug-main-process"></p>
+<h1 id="打包"><a href="#打包" class="headerlink" title="打包"></a>打包</h1><h2 id="第三方打包工具"><a href="#第三方打包工具" class="headerlink" title="第三方打包工具"></a>第三方打包工具</h2><ul>
+<li><a href="https://github.com/electron-userland/electron-packager" target="_blank" rel="noopener">electron-packager</a></li>
+<li><a href="https://github.com/electron-userland/electron-forge" target="_blank" rel="noopener">electron-forge</a></li>
+<li><a href="https://github.com/electron-userland/electron-builder" target="_blank" rel="noopener">electron-builder</a></li>
+</ul>
+<h2 id="举例（electron-packager）"><a href="#举例（electron-packager）" class="headerlink" title="举例（electron-packager）"></a>举例（electron-packager）</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// location of project是你项目文件夹的位置，</span></span><br><span class="line"><span class="comment">// name of project定义你的项目名，</span></span><br><span class="line"><span class="comment">// platform决定要构建的平台（*all* 包括Windows，Mac和Linux ），</span></span><br><span class="line"><span class="comment">// architecture决定构建哪个构架下（x86或x64，all表示两者），</span></span><br><span class="line"><span class="comment">// electron version让你选择要用的Electron版本</span></span><br><span class="line"></span><br><span class="line">electron-packager &lt;location <span class="keyword">of</span> project&gt; &lt;name of project&gt; &lt;platform&gt; &lt;architecture&gt; &lt;electron version&gt; &lt;optional options&gt;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>第一次打包用时比较久，因为要下载平台的二进制文件，随后的打包将会快的多。</p>
+</blockquote>
+<h1 id="与-React-or-Vue-集成"><a href="#与-React-or-Vue-集成" class="headerlink" title="与 React or Vue 集成"></a>与 React or Vue 集成</h1><ul>
+<li><a href="https://github.com/chentsulin/electron-react-boilerplate" target="_blank" rel="noopener">electron-react-boilerplate</a></li>
+<li><a href="https://github.com/SimulatedGREG/electron-vue" target="_blank" rel="noopener">electron-vue</a></li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li><p>Electron 并不是很复杂，在写完不多的主进程代码后，其他的业务代码几乎和Web应用没什么区别，甚至可以将一个线上应用迅速的包装成为一个客户端应用，比如<a href="https://github.com/geeeeeeeeek/electronic-wechat" target="_blank" rel="noopener">electronic-wechat</a>。</p>
+</li>
+<li><p>采坑不可避免，比如在打包、集成flash等方面等等；</p>
+</li>
+<li><p>基本不考虑兼容性（只需要兼容 Chromium 浏览器）</p>
+</li>
+<li><p>渲染进程调试和在浏览器中调试完全一致。多个web页面，每个都可以打开对应了调试工具，你可以和浏览器调试一样查看DOM、查看log、监听网络请求等等。</p>
+</li>
+</ul>
+<p>最后多说一句：<code>虽然Electron 的进程间通信很方便，而且支持多窗口，但我墙裂倾向于使用 Electron 构建单窗口应用</code>。</p>
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a href="https://electronjs.org/docs" target="_blank" rel="noopener">官方doc</a></li>
+<li><a href="http://get.ftqq.com/7870.get" target="_blank" rel="noopener">用Electron开发桌面应用</a></li>
+<li><a href="https://github.com/electron/electron-quick-start" target="_blank" rel="noopener">electron-quick-start</a></li>
+<li><a href="https://github.com/electron/electron-api-demos" target="_blank" rel="noopener">electron-api-demos</a></li>
+<li><a href="https://github.com/sindresorhus/awesome-electron" target="_blank" rel="noopener">awesome-electron</a></li>
+</ul>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Electron/" rel="tag"># Electron</a>
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/09/WebRTC初探/" rel="next" title="WebRTC初探">
+                <i class="fa fa-chevron-left"></i> WebRTC初探
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/12/Cocos2dx-记录/" rel="prev" title="Cocos2dx 记录">
+                Cocos2dx 记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="杨赫">
+            
+              <p class="site-author-name" itemprop="name">杨赫</p>
+              <div class="site-description motion-element" itemprop="description">曾经的北邮土著 | 如今的前端开发 <br>爱健身 | 爱狗子</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/etc1208" title="GitHub &rarr; https://github.com/etc1208" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:599068284@qq.com" title="E-Mail &rarr; mailto:599068284@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/2707541947/profile?rightmod=1&wvr=6&mod=personinfo" title="Weibo &rarr; https://weibo.com/2707541947/profile?rightmod=1&wvr=6&mod=personinfo" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#是什么"><span class="nav-number">1.1.</span> <span class="nav-text">是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#依赖项更新（Chromium-amp-Node）"><span class="nav-number">1.2.</span> <span class="nav-text">依赖项更新（Chromium &amp; Node）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">1.3.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决哪些困难"><span class="nav-number">1.4.</span> <span class="nav-text">解决哪些困难</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与web项目的主要区别"><span class="nav-number">1.5.</span> <span class="nav-text">与web项目的主要区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#目录结构抽象"><span class="nav-number">1.6.</span> <span class="nav-text">目录结构抽象</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主进程-amp-渲染进程"><span class="nav-number">2.</span> <span class="nav-text">主进程 &amp; 渲染进程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#区别"><span class="nav-number">2.1.</span> <span class="nav-text">区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举例"><span class="nav-number">2.2.</span> <span class="nav-text">举例</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进程间通信"><span class="nav-number">3.</span> <span class="nav-text">进程间通信</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ipc模块（渲染进程-gt-主进程）"><span class="nav-number">3.1.</span> <span class="nav-text">ipc模块（渲染进程 -&gt; 主进程）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#remote模块"><span class="nav-number">3.2.</span> <span class="nav-text">remote模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#webContents（主进程-gt-渲染进程）"><span class="nav-number">3.3.</span> <span class="nav-text">webContents（主进程 -&gt; 渲染进程）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ipcRenderer-sendTo（渲染进程-gt-渲染进程）"><span class="nav-number">3.4.</span> <span class="nav-text">ipcRenderer.sendTo（渲染进程 -&gt; 渲染进程）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#菜单（Menu-amp-MenuItem）"><span class="nav-number">4.</span> <span class="nav-text">菜单（Menu &amp; MenuItem）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Shell"><span class="nav-number">5.</span> <span class="nav-text">Shell</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#调试"><span class="nav-number">6.</span> <span class="nav-text">调试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#渲染进程调试"><span class="nav-number">6.1.</span> <span class="nav-text">渲染进程调试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主进程调试（vscode）"><span class="nav-number">6.2.</span> <span class="nav-text">主进程调试（vscode）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打包"><span class="nav-number">7.</span> <span class="nav-text">打包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#第三方打包工具"><span class="nav-number">7.1.</span> <span class="nav-text">第三方打包工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#举例（electron-packager）"><span class="nav-number">7.2.</span> <span class="nav-text">举例（electron-packager）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#与-React-or-Vue-集成"><span class="nav-number">8.</span> <span class="nav-text">与 React or Vue 集成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">9.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考资料"><span class="nav-number">10.</span> <span class="nav-text">参考资料</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user-circle"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨赫</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,0" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<style>
+  .copy-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #333;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+    
+    user-select: none;
+    outline: 0;
+  }
+
+  .highlight-wrap .copy-btn {
+    transition: opacity .3s ease-in-out;
+    opacity: 0;
+    padding: 2px 6px;
+    position: absolute;
+    
+      right: 4px;
+      top: 8px;
+    
+  }
+
+  .highlight-wrap:hover .copy-btn,
+  .highlight-wrap .copy-btn:focus {
+    opacity: 1;
+  }
+
+  .highlight-wrap {
+    position: relative;
+  }
+</style>
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('Copied');
+        else $(this).text('Copy failed');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('Copy');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+</body>
+</html>

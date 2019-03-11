@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link rel="stylesheet" href="/lib/pace/pace-theme-big-counter.min.css?v=1.0.2">
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <meta name="baidu-site-verification" content="g0s8LnawPl">
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2">
+
+<link rel="stylesheet" href="/css/main.css?v=7.0.1">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=7.0.1">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=7.0.1">
+
+
+  <link rel="mask-icon" href="/images/safari-pinned-tab.svg?v=7.0.1" color="#222">
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.0.1',
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false,"dimmer":false},
+    back2top: true,
+    back2top_sidebar: true,
+    fancybox: false,
+    fastclick: false,
+    lazyload: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="在正式入职之后接手的第一个重点项目便是web直播系统的重构。因为在实习期间一直参与旧版直播系统的迭代开发，同时因旧版本技术栈相对陈旧、代码维护成本过高、扩展能力较弱等原因，决定于2018年进行彻底重构，针对UI做出重新设计。整体系统比较简单，主体由视频和讨论区两大元素构成，在技术选型上采用React作为UI层框架，Mobx作为状态管理库，videoJs作为视频播放器类库。本文针对重构过程中涉及的主">
+<meta name="keywords" content="原创,React,直播,Mobx,VideoJs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React+Mobx+videojs重构web直播系统">
+<meta property="og:url" content="https://etc1208.github.io/2017/08/01/基于videojs的web直播系统重构/index.html">
+<meta property="og:site_name" content="杨赫的网络日志">
+<meta property="og:description" content="在正式入职之后接手的第一个重点项目便是web直播系统的重构。因为在实习期间一直参与旧版直播系统的迭代开发，同时因旧版本技术栈相对陈旧、代码维护成本过高、扩展能力较弱等原因，决定于2018年进行彻底重构，针对UI做出重新设计。整体系统比较简单，主体由视频和讨论区两大元素构成，在技术选型上采用React作为UI层框架，Mobx作为状态管理库，videoJs作为视频播放器类库。本文针对重构过程中涉及的主">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/2.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/3.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/4.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/5.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/6.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/7.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/8.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/9.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/10.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/11.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/12.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/13.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/14.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/15.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/16.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/17.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/18.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/19.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/20.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/21.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/22.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/23.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/24.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/25.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/26.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/27.png">
+<meta property="og:image" content="https://etc1208.github.io/images/zhibo/28.png">
+<meta property="og:updated_time" content="2019-03-11T17:51:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React+Mobx+videojs重构web直播系统">
+<meta name="twitter:description" content="在正式入职之后接手的第一个重点项目便是web直播系统的重构。因为在实习期间一直参与旧版直播系统的迭代开发，同时因旧版本技术栈相对陈旧、代码维护成本过高、扩展能力较弱等原因，决定于2018年进行彻底重构，针对UI做出重新设计。整体系统比较简单，主体由视频和讨论区两大元素构成，在技术选型上采用React作为UI层框架，Mobx作为状态管理库，videoJs作为视频播放器类库。本文针对重构过程中涉及的主">
+<meta name="twitter:image" content="https://etc1208.github.io/images/zhibo/2.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://etc1208.github.io/2017/08/01/基于videojs的web直播系统重构/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>React+Mobx+videojs重构web直播系统 | 杨赫的网络日志</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .motion-element,
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-title { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">杨赫的网络日志</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <h1 class="site-subtitle" itemprop="description">FE development engineer</h1>
+      
+    
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-about">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">18</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>Categories<span class="badge">3</span></a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">11</span></a>
+
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>Search</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+    <div class="reading-progress-bar"></div>
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2017/08/01/基于videojs的web直播系统重构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨赫">
+      <meta itemprop="description" content="曾经的北邮土著 | 如今的前端开发 <br/>爱健身 | 爱狗子">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨赫的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">React+Mobx+videojs重构web直播系统
+
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          
+            <i class="fa fa-thumb-tack"></i>
+            <font color="red">置顶</font>
+            <span class="post-meta-divider">|</span>
+          
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2017-08-01 12:00:00" itemprop="dateCreated datePublished" datetime="2017-08-01T12:00:00+08:00">2017-08-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-03-12 01:51:57" itemprop="dateModified" datetime="2019-03-12T01:51:57+08:00">2019-03-12</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/项目/" itemprop="url" rel="index"><span itemprop="name">项目</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在正式入职之后接手的第一个重点项目便是web直播系统的重构。因为在实习期间一直参与旧版直播系统的迭代开发，同时因旧版本技术栈相对陈旧、代码维护成本过高、扩展能力较弱等原因，决定于2018年进行彻底重构，针对UI做出重新设计。整体系统比较简单，主体由视频和讨论区两大元素构成，在技术选型上采用React作为UI层框架，Mobx作为状态管理库，videoJs作为视频播放器类库。本文针对重构过程中涉及的主要技术点进行记录，留作今后查缺补漏。</p>
+<h2 id="技术选型"><a href="#技术选型" class="headerlink" title="技术选型"></a>技术选型</h2><p><img src="/images/zhibo/2.png" alt></p>
+<h2 id="Mobx"><a href="#Mobx" class="headerlink" title="Mobx"></a>Mobx</h2><blockquote>
+<p>无论是Redux / MobX ，均是开源的状态管理库，用状态描述 UI 界面，与 React 都不具有强绑定关系</p>
+</blockquote>
+<p><img src="/images/zhibo/3.png" alt></p>
+<h3 id="store"><a href="#store" class="headerlink" title="store"></a>store</h3><p><img src="/images/zhibo/4.png" alt></p>
+<h3 id="Mobx-react-绑定库"><a href="#Mobx-react-绑定库" class="headerlink" title="Mobx-react 绑定库"></a>Mobx-react 绑定库</h3><blockquote>
+<p>主要提供API：Provider &amp; inject &amp; observer</p>
+</blockquote>
+<ul>
+<li>redux <-> react-redux</-></li>
+<li>mobx <-> mobx-react</-></li>
+</ul>
+<p><img src="/images/zhibo/5.png" alt></p>
+<h3 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h3><ul>
+<li>@表示装饰器，可以在 ES7 或者 TypeScript 类属性中使用。Mobx中装饰器的使用并非必须，只是语法稍有区别。</li>
+<li>Babel默认情况下是不支持装饰器的，需配置相应plugin:</li>
+</ul>
+<p><img src="/images/zhibo/6.png" alt></p>
+<blockquote>
+<p>!!注意， plugins 属性中: transform-decorators-legacy 应放在最前面。当使用 react native 时，可用下面的预设来代替 transform-decorators-legacy:</p>
+</blockquote>
+<p><img src="/images/zhibo/7.png" alt></p>
+<h2 id="H5的video标签"><a href="#H5的video标签" class="headerlink" title="H5的video标签"></a>H5的video标签</h2><h3 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h3><p>H5中的video标签可以进行视频播放，写一个video设置一个src属性指定媒体源地址就可以实现媒体播放了。针对低版本浏览器video的HTML结构也提供了友好的兼容方案，只需要在video标签内写上不兼容时要展示的HTML内容即可。</p>
+<p><img src="/images/zhibo/8.png" alt></p>
+<h3 id="video的属性"><a href="#video的属性" class="headerlink" title="video的属性"></a>video的属性</h3><p><img src="/images/zhibo/9.png" alt></p>
+<ul>
+<li>src: 视频地址controls: 控制条；</li>
+<li>poster: 视频下载时显示的图像；</li>
+<li>preload: 预加载；</li>
+<li>playsinline: 防止ios用户视频播放自动全屏。</li>
+<li>x-webkit-airplay=“allow” : 支持ios的AirPlay功能；</li>
+<li>x5-video-orientation: 声明播放器支持的方向；</li>
+<li>x5­-video­-player­-fullscreen:全屏设置；</li>
+</ul>
+<h3 id="媒体格式"><a href="#媒体格式" class="headerlink" title="媒体格式"></a>媒体格式</h3><p>目前原生H5支持的媒体格式主要有MP4、OGG、WebM、M3U8等，但各大浏览器厂商之间对媒体格式的支持各不相同：</p>
+<p><img src="/images/zhibo/10.png" alt></p>
+<h3 id="canPlayType-API"><a href="#canPlayType-API" class="headerlink" title="canPlayType API"></a>canPlayType API</h3><p>可以通过HTMLVideoElement的canPlayType API进行当前环境的格式兼容判断:</p>
+<ul>
+<li>‘probably’: The specified media type appears to be playable.</li>
+<li>‘maybe’: Cannot tell if the media type is playable without playing it.</li>
+<li>‘ ‘ :The specified media type definitely cannot be played.</li>
+</ul>
+<p><img src="/images/zhibo/11.png" alt></p>
+<h3 id="环境差异"><a href="#环境差异" class="headerlink" title="环境差异"></a>环境差异</h3><ul>
+<li><ol>
+<li>UI不一致</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>API实现与支持程度不一致（标准API里的controls、poster、autoplay…未必有效）</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>事件交互行为不一致（播放进度变化、事件触发频率不同、部分事件触发时相应状态值未必可靠、部分场景缺少事件..）</li>
+</ol>
+</li>
+<li><ol start="4">
+<li>媒体格式的支持无法保证</li>
+</ol>
+</li>
+</ul>
+<p><img src="/images/zhibo/12.png" alt></p>
+<h2 id="Video-js"><a href="#Video-js" class="headerlink" title="Video.js"></a>Video.js</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>Video.js 是一个通用的在网页中嵌入视频播放器的 JS 库，自动检测浏览器对 HTML5 的支持情况，如果不支持则自动使用 Flash 播放器。（目前版本：v6.5.0）</p>
+<blockquote>
+<p>优点：</p>
+<ul>
+<li><ol>
+<li>开源免费（<a href="https://github.com/videojs/video.js）。" target="_blank" rel="noopener">https://github.com/videojs/video.js）。</a></li>
+</ol>
+</li>
+<li>2.接入简单（几分钟即可完成基础配置，搭建视频页面）。</li>
+<li>3.几乎兼容所有主流浏览器，并优先使用html5；在不支持的浏览器中，会自动使用flash进行播放。</li>
+<li><ol start="4">
+<li>界面可定制、插件可扩展。</li>
+</ol>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>注意：</p>
+<ul>
+<li>v6.0.0版本之前：默认将flash build在sdk中;</li>
+<li>v6.0.0版本之后：需手动引入官方提供的flash tech（<a href="https://github.com/videojs/videojs-flash）" target="_blank" rel="noopener">https://github.com/videojs/videojs-flash）</a>;</li>
+</ul>
+</blockquote>
+<h3 id="Skins-amp-Icons-amp-Plugins"><a href="#Skins-amp-Icons-amp-Plugins" class="headerlink" title="Skins &amp; Icons &amp; Plugins"></a>Skins &amp; Icons &amp; Plugins</h3><ul>
+<li>Skinning</li>
+</ul>
+<p>播放器样式完全通过html+css构建，可以通过覆盖基础css样式进行调整；</p>
+<ul>
+<li>Icons</li>
+</ul>
+<p><img src="/images/zhibo/13.png" alt></p>
+<p>除此之外，videoJS本身固有的几个class如果灵活运用，可以减少部分细节处理工作量</p>
+<ul>
+<li>vjs-live-control // 展示直播状态</li>
+<li>vjs-poster // 展示默认图</li>
+<li>vjs-seeking // 展示加载中loading</li>
+<li>vjs-controls-enabled // 展示控制条</li>
+<li>vjs-controls-disabled //隐藏所有的控制组件</li>
+<li>vjs-ended // 播放结束样式 </li>
+<li>vjs-error // 视频异常展示错误信息</li>
+<li><p>…</p>
+</li>
+<li><p>Plugins</p>
+</li>
+</ul>
+<p>Video.js 本身很简单，支持基础的播放功能和特性。任何复杂或高级特性将以插件形式提供，比如：播放列表、分析、广告和支持先进的格式如HLS等。(<a href="http://videojs.com/plugins/" target="_blank" rel="noopener">http://videojs.com/plugins/</a>) </p>
+<p><img src="/images/zhibo/14.png" alt></p>
+<p>Video.js 提供强大而丰富的插件同时，你也可以自己创建插件并发布。</p>
+<ul>
+<li><p>1.插件方法中的this指向所创建plugin依附的videojs实例；</p>
+</li>
+<li><p>2.插件方法中可以使用任何videojs API进行相关处理；</p>
+</li>
+<li><p>3.例如在直播系统中：有关视频的日志上报、各种播放器事件监听处理等，均可放到单独的插件中，方便组织代码；</p>
+</li>
+</ul>
+<blockquote>
+<p>Step 1: Write Some Javascript</p>
+</blockquote>
+<p><img src="/images/zhibo/15.png" alt></p>
+<blockquote>
+<p>Step 2: Registering A Plugin</p>
+</blockquote>
+<p><img src="/images/zhibo/16.png" alt></p>
+<blockquote>
+<p>Step 3: Using A Plugin</p>
+</blockquote>
+<p><img src="/images/zhibo/17.png" alt></p>
+<h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ul>
+<li>方式一：</li>
+</ul>
+<p><img src="/images/zhibo/18.png" alt></p>
+<ul>
+<li>方式二：（推荐）</li>
+</ul>
+<p><img src="/images/zhibo/19.png" alt></p>
+<h3 id="配置参数"><a href="#配置参数" class="headerlink" title="配置参数"></a>配置参数</h3><p>一般，对于播放器的初始化，除了传入必备的视频源地址以及视频格式之外，videoJS支持配置额外的options。如：</p>
+<ul>
+<li>直播type：’rtmp/flv’</li>
+<li>录播type：’video/mp4’</li>
+</ul>
+<p><img src="/images/zhibo/20.png" alt></p>
+<h3 id="常用API"><a href="#常用API" class="headerlink" title="常用API"></a>常用API</h3><p><img src="/images/zhibo/21.png" alt></p>
+<h3 id="常用事件"><a href="#常用事件" class="headerlink" title="常用事件"></a>常用事件</h3><p><img src="/images/zhibo/22.png" alt></p>
+<h3 id="主要事件的处理"><a href="#主要事件的处理" class="headerlink" title="主要事件的处理"></a>主要事件的处理</h3><ul>
+<li><p>loadstart：标识播放器开始加载视频，在这里可以展示加载中状态、设置定时器判定首次加载是否成功;</p>
+</li>
+<li><p>error：标识播放器异常，一般原因有网络异常、视频解码异常等，此时进行主动拉流操作，并在多次尝试拉流失败后给出用户提示；</p>
+</li>
+<li><p>canplaythrough、 play、playing、 seeked：都可能标识视频已正常播放，此时应对错误提示、加载中提示、切换线路提示等UI进行隐藏调整；</p>
+</li>
+<li><p>waiting：标识视频发生卡顿较为准确的事件，可以在此处进行视频卡顿次数的记录并展示卡顿提示等信息；</p>
+</li>
+<li><p>pause：标识视频暂停，可以做一些UI（如：预览、控制条等）方面的显隐操作;</p>
+</li>
+<li><p>timeupdate：标识视频进行中位置发生改变，可在此完成协同播放时间的其他界面操作;</p>
+</li>
+<li><p>ended：标识视频播放结束，可做一系列资源回收、清理工作，或者结束提示、循环播放等操作；</p>
+</li>
+<li><p>stalled：标识视频资源不可用，这时应进行主动拉流或者提示用户切换线路等操作（但要注意：在部分浏览器中，视频长时间处于暂停状态后可能也会触发此事件，这是应该忽略）；</p>
+</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="视频播放监控"><a href="#视频播放监控" class="headerlink" title="视频播放监控"></a>视频播放监控</h3><p><img src="/images/zhibo/23.png" alt></p>
+<h3 id="视频异常"><a href="#视频异常" class="headerlink" title="视频异常"></a>视频异常</h3><p>播放器提供的error事件回调基本涵盖了绝大多数异常情况，包括视频格式无法解析、视频源错误、网络异常、拉流超时等；</p>
+<p><img src="/images/zhibo/24.png" alt></p>
+<h3 id="视频首次加载过程"><a href="#视频首次加载过程" class="headerlink" title="视频首次加载过程"></a>视频首次加载过程</h3><p>当音频/视频处于首次加载过程中时，大致会发生以下事件：</p>
+<p><img src="/images/zhibo/25.png" alt></p>
+<ul>
+<li>1.play、playing、canplaythrough三个事件不一定都会触发，顺序也并不固定；</li>
+<li>2.不同浏览器中（如Edge）可能直接触发到seeked事件即加载完成开始播放，并不会有play、playing、canplaythrough这些；</li>
+<li><ol start="3">
+<li>durationchange有时候会在loadstart事件之前触发；</li>
+</ol>
+</li>
+</ul>
+<h3 id="视频首次加载-amp-卡顿"><a href="#视频首次加载-amp-卡顿" class="headerlink" title="视频首次加载&amp;卡顿"></a>视频首次加载&amp;卡顿</h3><blockquote>
+<p>这里的关键在于定时器到期后判断视频是否处于正常状态</p>
+</blockquote>
+<p>在web直播系统中,我们针对视频首次加载是否成功，视频播放中产生的卡顿进行监测记录：</p>
+<ul>
+<li><p>1.首次加载：从loadstart事件开始若干秒内视频是否加载成功；</p>
+</li>
+<li><p>2.卡顿：从waiting事件触发后若干秒内是否恢复正常播放；</p>
+</li>
+</ul>
+<p><img src="/images/zhibo/26.png" alt></p>
+<p><img src="/images/zhibo/27.png" alt></p>
+<h2 id="其他问题小结"><a href="#其他问题小结" class="headerlink" title="其他问题小结"></a>其他问题小结</h2><blockquote>
+<p>Video.networkState() 判断网络状态    </p>
+</blockquote>
+<ul>
+<li>0 = NETWORK_EMPTY - 音频/视频尚未初始化    </li>
+<li>1 = NETWORK_IDLE - 音频/视频是活动的且已选取资源，但并未使用网络    </li>
+<li>2 = NETWORK_LOADING - 浏览器正在下载数据    </li>
+<li>3 = NETWORK_NO_SOURCE - 未找到音频/视频来源</li>
+</ul>
+<p>在开发中遇到这种情况：直播时，如果web端直接断开网络连接，视频播放器是不会抛出任何异常事件的，这时如果我们想为用户提供主动拉流，需要监测网络状态变化。Video.networkState经试验并不可取，无论网络异常与否，都会从0或2最终变化到1。（最后通过监听offline &amp; online事件获取网络状态变化）</p>
+<blockquote>
+<p>video.addTextTrack()</p>
+</blockquote>
+<ul>
+<li>addTextTrack方法创建和返回新的文本轨道。</li>
+<li>新的TextTrack对象会被添加到视频/音频元素的文本轨道列表中。</li>
+</ul>
+<p>浏览器支持程度：所有主流浏览器都不支持addTextTrack方法。</p>
+<blockquote>
+<p>IE浏览器，每次暂停再开始或快进/退视频，视频倍速会被自动重置为1倍速</p>
+</blockquote>
+<p><img src="/images/zhibo/28.png" alt></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+            <a href="/tags/直播/" rel="tag"># 直播</a>
+          
+            <a href="/tags/Mobx/" rel="tag"># Mobx</a>
+          
+            <a href="/tags/VideoJs/" rel="tag"># VideoJs</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/01/GitPage-Hexo建站/" rel="next" title="GitPage+Hexo建站">
+                <i class="fa fa-chevron-left"></i> GitPage+Hexo建站
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/06/移动端视频autoplay-playsinline小结/" rel="prev" title="移动端视频autoplay+playsinline小结">
+                移动端视频autoplay+playsinline小结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpeg" alt="杨赫">
+            
+              <p class="site-author-name" itemprop="name">杨赫</p>
+              <div class="site-description motion-element" itemprop="description">曾经的北邮土著 | 如今的前端开发 <br>爱健身 | 爱狗子</div>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">posts</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                      <a href="/categories/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-name">categories</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                      <a href="/tags/">
+                    
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">18</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+            <div class="links-of-author motion-element">
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://github.com/etc1208" title="GitHub &rarr; https://github.com/etc1208" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="mailto:599068284@qq.com" title="E-Mail &rarr; mailto:599068284@qq.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  
+                  
+                  
+                    
+                  
+                  <a href="https://weibo.com/2707541947/profile?rightmod=1&wvr=6&mod=personinfo" title="Weibo &rarr; https://weibo.com/2707541947/profile?rightmod=1&wvr=6&mod=personinfo" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i></a>
+                </span>
+              
+            </div>
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#技术选型"><span class="nav-number">1.</span> <span class="nav-text">技术选型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mobx"><span class="nav-number">2.</span> <span class="nav-text">Mobx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#store"><span class="nav-number">2.1.</span> <span class="nav-text">store</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mobx-react-绑定库"><span class="nav-number">2.2.</span> <span class="nav-text">Mobx-react 绑定库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#装饰器"><span class="nav-number">2.3.</span> <span class="nav-text">装饰器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#H5的video标签"><span class="nav-number">3.</span> <span class="nav-text">H5的video标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本使用"><span class="nav-number">3.1.</span> <span class="nav-text">基本使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#video的属性"><span class="nav-number">3.2.</span> <span class="nav-text">video的属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#媒体格式"><span class="nav-number">3.3.</span> <span class="nav-text">媒体格式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#canPlayType-API"><span class="nav-number">3.4.</span> <span class="nav-text">canPlayType API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#环境差异"><span class="nav-number">3.5.</span> <span class="nav-text">环境差异</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Video-js"><span class="nav-number">4.</span> <span class="nav-text">Video.js</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简介"><span class="nav-number">4.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Skins-amp-Icons-amp-Plugins"><span class="nav-number">4.2.</span> <span class="nav-text">Skins &amp; Icons &amp; Plugins</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">4.3.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置参数"><span class="nav-number">4.4.</span> <span class="nav-text">配置参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用API"><span class="nav-number">4.5.</span> <span class="nav-text">常用API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用事件"><span class="nav-number">4.6.</span> <span class="nav-text">常用事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要事件的处理"><span class="nav-number">4.7.</span> <span class="nav-text">主要事件的处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">5.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#视频播放监控"><span class="nav-number">5.1.</span> <span class="nav-text">视频播放监控</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视频异常"><span class="nav-number">5.2.</span> <span class="nav-text">视频异常</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视频首次加载过程"><span class="nav-number">5.3.</span> <span class="nav-text">视频首次加载过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#视频首次加载-amp-卡顿"><span class="nav-number">5.4.</span> <span class="nav-text">视频首次加载&amp;卡顿</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他问题小结"><span class="nav-number">6.</span> <span class="nav-text">其他问题小结</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+  
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user-circle"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">杨赫</span>
+
+  
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-user"></i>
+    </span>
+    <span class="site-uv" title="Total Visitors">
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+    </span>
+  
+
+  
+    <span class="post-meta-divider">|</span>
+  
+
+  
+    <span class="post-meta-item-icon">
+      <i class="fa fa-eye"></i>
+    </span>
+    <span class="site-pv" title="Total Views">
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+    
+    
+  
+  <script color="0,0,0" opacity="0.5" zindex="-1" count="99" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script src="/lib/reading_progress/reading_progress.js"></script>
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=7.0.1"></script>
+
+  <script src="/js/src/motion.js?v=7.0.1"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=7.0.1"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=7.0.1"></script>
+
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
+
+  
+
+
+  <script src="/js/src/next-boot.js?v=7.0.1"></script>
+
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+
+  
+  <script>
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url).replace(/\/{2,}/g, '/');
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x"></i></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x"></i></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+<style>
+  .copy-btn {
+    display: inline-block;
+    padding: 6px 12px;
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 20px;
+    color: #333;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    
+      background-color: #eee;
+      background-image: linear-gradient(#fcfcfc, #eee);
+      border: 1px solid #d5d5d5;
+      border-radius: 3px;
+    
+    user-select: none;
+    outline: 0;
+  }
+
+  .highlight-wrap .copy-btn {
+    transition: opacity .3s ease-in-out;
+    opacity: 0;
+    padding: 2px 6px;
+    position: absolute;
+    
+      right: 4px;
+      top: 8px;
+    
+  }
+
+  .highlight-wrap:hover .copy-btn,
+  .highlight-wrap .copy-btn:focus {
+    opacity: 1;
+  }
+
+  .highlight-wrap {
+    position: relative;
+  }
+</style>
+<script>
+  $('.highlight').each(function(i, e) {
+    var $wrap = $('<div>').addClass('highlight-wrap');
+    $(e).after($wrap);
+    $wrap.append($('<button>').addClass('copy-btn').append('Copy').on('click', function(e) {
+      var code = $(this).parent().find('.code').find('.line').map(function(i, e) {
+        return $(e).text();
+      }).toArray().join('\n');
+      var ta = document.createElement('textarea');
+      var yPosition = window.pageYOffset || document.documentElement.scrollTop;
+      ta.style.top = yPosition + 'px'; // Prevent page scroll
+      ta.style.position = 'absolute';
+      ta.style.opacity = '0';
+      ta.readOnly = true;
+      ta.value = code;
+      document.body.appendChild(ta);
+      ta.select();
+      ta.setSelectionRange(0, code.length);
+      ta.readOnly = false;
+      var result = document.execCommand('copy');
+      
+        if (result) $(this).text('Copied');
+        else $(this).text('Copy failed');
+      
+      ta.blur(); // For iOS
+      $(this).blur();
+    })).on('mouseleave', function(e) {
+      var $b = $(this).find('.copy-btn');
+      setTimeout(function() {
+        $b.text('Copy');
+      }, 300);
+    }).append(e);
+  })
+</script>
+
+
+</body>
+</html>
