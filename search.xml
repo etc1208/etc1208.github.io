@@ -82,8 +82,8 @@
         <category>笔记</category>
       </categories>
       <tags>
-        <tag>原创</tag>
         <tag>Electron</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -131,9 +131,9 @@
         <category>笔记</category>
       </categories>
       <tags>
+        <tag>原创</tag>
         <tag>GitPage</tag>
         <tag>Hexo</tag>
-        <tag>原创</tag>
       </tags>
   </entry>
 </search>
