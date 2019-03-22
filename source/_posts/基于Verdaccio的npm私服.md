@@ -2,7 +2,7 @@
 title: 基于Verdaccio的npm私服
 date: 2018-06-12 13:20:00
 tags: [npm, 原创]
-categories: 笔记
+categories: 技术
 ---
 
 在日常开发过程中，我们经常会使用到npm包，也就是出现在我们的package.json中的种种依赖，亦是node_modules中的一个个文件夹。这些包大多来自[npm公网仓库](https://www.npmjs.com/)。

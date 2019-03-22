@@ -2,7 +2,7 @@
 title: GitPage+Hexo建站
 date: 2017-04-01 10:09:14
 tags: [GitPage, Hexo, 原创]
-categories: 笔记
+categories: 技术
 ---
 
 这里简要记录 [GitPage](https://pages.github.com/) + [Hexo](https://hexo.io/zh-cn/) 快速建立个人站点的过程。建站方式很多，依托的平台不尽相同，我选择GitPage+Hexo，其具有操作简单、维护成本低、文档详细等优势。网上已经有很多此类教程，此文并无过多创新，仅在记录自己建站中的操作步骤、相关参考文档等，力求简明扼要。

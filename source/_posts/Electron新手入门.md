@@ -2,7 +2,7 @@
 title: Electron新手入门
 date: 2018-02-11 14:40:00
 tags: [Electron, 原创]
-categories: 笔记
+categories: 技术
 ---
 
 ![Electron](/images/electron/electron.png)
