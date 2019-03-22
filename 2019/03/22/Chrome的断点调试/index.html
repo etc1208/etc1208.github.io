@@ -107,24 +107,25 @@
 
 
 
-  <meta name="description" content="曾经的北邮土著 | 如今的前端开发 爱健身 | 爱狗子">
-<meta name="keywords" content="前端">
-<meta property="og:type" content="website">
-<meta property="og:title" content="杨赫的网络日志">
-<meta property="og:url" content="https://etc1208.github.io/archives/2018/12/index.html">
+  <meta name="description" content="前端开发离不开浏览器环境的debug，chrome为我们提供了断点调试的诸多便利，利用断点调试我们可以触达代码逻辑细微之处、DOM元素变化的瞬间、XHR请求的发生、事件监听的触发等等；有助于我们对bug的追踪排查。这篇笔记记录chrome断点调试js代码的种种功能，在开发过程中提高我们的debug效率。 各类断点使用时间概览   断点类型 使用情况     代码行 在确切的代码区域中。   条件代">
+<meta name="keywords" content="Chrome,调试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome的断点调试">
+<meta property="og:url" content="https://etc1208.github.io/2019/03/22/Chrome的断点调试/index.html">
 <meta property="og:site_name" content="杨赫的网络日志">
-<meta property="og:description" content="曾经的北邮土著 | 如今的前端开发 爱健身 | 爱狗子">
+<meta property="og:description" content="前端开发离不开浏览器环境的debug，chrome为我们提供了断点调试的诸多便利，利用断点调试我们可以触达代码逻辑细微之处、DOM元素变化的瞬间、XHR请求的发生、事件监听的触发等等；有助于我们对bug的追踪排查。这篇笔记记录chrome断点调试js代码的种种功能，在开发过程中提高我们的debug效率。 各类断点使用时间概览   断点类型 使用情况     代码行 在确切的代码区域中。   条件代">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-03-22T06:12:46.115Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="杨赫的网络日志">
-<meta name="twitter:description" content="曾经的北邮土著 | 如今的前端开发 爱健身 | 爱狗子">
+<meta name="twitter:title" content="Chrome的断点调试">
+<meta name="twitter:description" content="前端开发离不开浏览器环境的debug，chrome为我们提供了断点调试的诸多便利，利用断点调试我们可以触达代码逻辑细微之处、DOM元素变化的瞬间、XHR请求的发生、事件监听的触发等等；有助于我们对bug的追踪排查。这篇笔记记录chrome断点调试js代码的种种功能，在开发过程中提高我们的debug效率。 各类断点使用时间概览   断点类型 使用情况     代码行 在确切的代码区域中。   条件代">
 
 
 
 
 
 
-  <link rel="canonical" href="https://etc1208.github.io/archives/2018/12/">
+  <link rel="canonical" href="https://etc1208.github.io/2019/03/22/Chrome的断点调试/">
 
 
 
@@ -134,7 +135,7 @@
   };
 </script>
 
-  <title>Archive | 杨赫的网络日志</title>
+  <title>Chrome的断点调试 | 杨赫的网络日志</title>
   
 
 
@@ -192,7 +193,7 @@
     
   
 
-  <div class="container sidebar-position-right page-archive">
+  <div class="container sidebar-position-right page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -310,7 +311,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -383,104 +384,314 @@
           
             
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
           
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 10 posts in total. Keep on posting.
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2018">2018</h2>
-          </div>
-        
-        
-
-        
+  
+    <div class="reading-progress-bar"></div>
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2019/03/22/Chrome的断点调试/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="杨赫">
+      <meta itemprop="description" content="曾经的北邮土著 | 如今的前端开发 <br/>爱健身 | 爱狗子">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="杨赫的网络日志">
+    </span>
+
+    
+      <header class="post-header">
+
         
-          <a class="post-title-link" href="/2018/12/30/next-js初探/" itemprop="url">
-            
-              <span itemprop="name">next.js初探</span>
-            
-          </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Chrome的断点调试
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-30T17:50:00+08:00" content="2018-12-30">
-          12-30
-        </time>
-      </div>
+              
+            
+          </h2>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          
+          <span class="post-time">
 
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+
+              
+                
+              
+
+              <time title="Created: 2019-03-22 13:31:29 / Modified: 14:12:46" itemprop="dateCreated datePublished" datetime="2019-03-22T13:31:29+08:00">2019-03-22</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             Views:  
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <p>前端开发离不开浏览器环境的debug，chrome为我们提供了断点调试的诸多便利，利用断点调试我们可以触达代码逻辑细微之处、DOM元素变化的瞬间、XHR请求的发生、事件监听的触发等等；有助于我们对bug的追踪排查。这篇笔记记录chrome断点调试js代码的种种功能，在开发过程中提高我们的debug效率。</p>
+<h1 id="各类断点使用时间概览"><a href="#各类断点使用时间概览" class="headerlink" title="各类断点使用时间概览"></a>各类断点使用时间概览</h1><table>
+<thead>
+<tr>
+<th style="text-align:center">断点类型</th>
+<th style="text-align:center">使用情况</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">代码行</td>
+<td style="text-align:center">在确切的代码区域中。</td>
+</tr>
+<tr>
+<td style="text-align:center">条件代码行</td>
+<td style="text-align:center">在确切的代码区域中，且仅当其他一些条件成立时。</td>
+</tr>
+<tr>
+<td style="text-align:center">DOM</td>
+<td style="text-align:center">在更改或移除特定 DOM 节点或其子级的代码中。</td>
+</tr>
+<tr>
+<td style="text-align:center">XHR</td>
+<td style="text-align:center">当 XHR 网址包含字符串模式时。</td>
+</tr>
+<tr>
+<td style="text-align:center">事件侦听器</td>
+<td style="text-align:center">在触发 click 等事件后运行的代码中。</td>
+</tr>
+<tr>
+<td style="text-align:center">异常</td>
+<td style="text-align:center">在引发已捕获或未捕获异常的代码行中。</td>
+</tr>
+<tr>
+<td style="text-align:center">函数</td>
+<td style="text-align:center">任何时候调用特定函数时。</td>
+</tr>
+</tbody>
+</table>
+<h1 id="代码行断点"><a href="#代码行断点" class="headerlink" title="代码行断点"></a>代码行断点</h1><h2 id="在-DevTools-中设置代码行断点"><a href="#在-DevTools-中设置代码行断点" class="headerlink" title="在 DevTools 中设置代码行断点"></a>在 DevTools 中设置代码行断点</h2><p>在知道需要调查的确切代码区域时，可以使用代码行断点。 DevTools 始终会在执行此代码行之前暂停。</p>
+<p>在 DevTools 中设置代码行断点：</p>
+<ul>
+<li>点击 Sources 标签。</li>
+<li>打开包含您想要中断的代码行的文件。</li>
+<li>转至代码行。</li>
+<li>代码行的左侧是行号列。 点击行号列。 行号列顶部将显示一个蓝色图标。</li>
+</ul>
+<h2 id="代码中的代码行断点"><a href="#代码中的代码行断点" class="headerlink" title="代码中的代码行断点"></a>代码中的代码行断点</h2><p>在代码中调用 debugger 可在该行暂停。 此操作相当于使用代码行断点，只是此断点是在代码中设置，而不是在 DevTools 界面中设置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;a&apos;);</span><br><span class="line">console.log(&apos;b&apos;);</span><br><span class="line">debugger;</span><br><span class="line">console.log(&apos;c&apos;);</span><br></pre></td></tr></table></figure>
+<h2 id="条件代码行断点"><a href="#条件代码行断点" class="headerlink" title="条件代码行断点"></a>条件代码行断点</h2><p>如果知道需要调查的确切代码区域，但只想在其他一些条件成立时进行暂停，则可使用条件代码行断点。</p>
+<p>若要设置条件代码行断点：</p>
+<ul>
+<li>点击 Sources 标签。</li>
+<li>打开包含您想要中断的代码行的文件。</li>
+<li>转至代码行。</li>
+<li>代码行的左侧是行号列。 右键点击行号列。</li>
+<li>选择 Add conditional breakpoint。 代码行下方将显示一个对话框。</li>
+<li>在对话框中输入条件。</li>
+<li>按 Enter 键激活断点。 行号列顶部将显示一个橙色图标。</li>
+</ul>
+<h2 id="管理代码行断点"><a href="#管理代码行断点" class="headerlink" title="管理代码行断点"></a>管理代码行断点</h2><p>使用 Breakpoints 窗格可以从单个位置停用或移除代码行断点。</p>
+<ul>
+<li>勾选条目旁的复选框可以停用相应的断点。</li>
+<li>右键点击条目可以移除相应的断点。</li>
+<li>右键点击 Breakpoints 窗格中的任意位置可以取消激活所有断点、停用所有断点，或移除所有断点。 停用所有断点相当于取消选中每个断点。 取消激活所有断点可让 DevTools 忽略所有代码行断点，但同时会继续保持其启用状态，以使这些断点的状态与取消激活之前相同。</li>
+</ul>
+<h1 id="DOM-更改断点"><a href="#DOM-更改断点" class="headerlink" title="DOM 更改断点"></a>DOM 更改断点</h1><p>如果想要暂停更改 DOM 节点或其子级的代码，可以使用 DOM 更改断点。</p>
+<p>若要设置 DOM 更改断点：</p>
+<ul>
+<li>点击 Elements 标签。</li>
+<li>转至要设置断点的元素。</li>
+<li>右键点击此元素。</li>
+<li>将鼠标指针悬停在 Break on 上，然后选择 Subtree modifications、Attribute modifications 或 Node removal。</li>
+</ul>
+<h1 id="XHR-Fetch-断点"><a href="#XHR-Fetch-断点" class="headerlink" title="XHR/Fetch 断点"></a>XHR/Fetch 断点</h1><p>如果想在 XHR 的请求网址包含指定字符串时中断，可以使用 XHR 断点。 DevTools 会在 XHR 调用 send() 的代码行暂停。</p>
+<blockquote>
+<p>注：此功能还可用于 Fetch 请求。</p>
+</blockquote>
+<p>例如，在您发现您的页面请求的是错误网址，并且您想要快速找到导致错误请求的 AJAX 或 Fetch 源代码时，这类断点很有用。</p>
+<p>若要设置 XHR 断点：</p>
+<ul>
+<li>点击 Sources 标签。</li>
+<li>展开 XHR Breakpoints 窗格。</li>
+<li>点击 Add breakpoint。</li>
+<li>输入要对其设置断点的字符串。 DevTools 会在 XHR 的请求网址的任意位置显示此字符串时暂停。</li>
+<li>按 Enter 键以确认。</li>
+</ul>
+<h1 id="事件侦听器断点"><a href="#事件侦听器断点" class="headerlink" title="事件侦听器断点"></a>事件侦听器断点</h1><p>如果想要暂停触发事件后运行的事件侦听器代码，可以使用事件侦听器断点。 您可以选择 click 等特定事件或所有鼠标事件等事件类别。</p>
+<ul>
+<li>点击 Sources 标签。</li>
+<li>展开 Event Listener Breakpoints 窗格。 DevTools 会显示 Animation 等事件类别列表。</li>
+<li>勾选这些类别之一以在触发该类别的任何事件时暂停，或者展开类别并勾选特定事件。</li>
+</ul>
+<h1 id="异常断点"><a href="#异常断点" class="headerlink" title="异常断点"></a>异常断点</h1><p>如果想要在引发已捕获或未捕获异常的代码行暂停，可以使用异常断点。</p>
+<ul>
+<li>点击 Sources 标签。</li>
+<li>点击 Pause on exceptions。 启用后，此按钮变为蓝色。</li>
+<li>（可选）如果除未捕获异常以外，还想在引发已捕获异常时暂停，则勾选 Pause On Caught Exceptions 复选框。</li>
+</ul>
+<h1 id="函数断点"><a href="#函数断点" class="headerlink" title="函数断点"></a>函数断点</h1><p>函数断点</p>
+<p>如果想要在调用特定函数时暂停，可以调用 debug(functionName)，其中 functionName 是要调试的函数。 您可以将 debug() 插入您的代码（如 console.log() 语句），也可以从 DevTools 控制台中进行调用。 debug() 相当于在第一行函数中设置代码行断点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function sum(a, b) &#123;</span><br><span class="line">  let result = a + b; // DevTools pauses on this line.</span><br><span class="line">  return result;</span><br><span class="line">&#125;</span><br><span class="line">debug(sum); // Pass the function object, not a string.</span><br><span class="line">sum();</span><br></pre></td></tr></table></figure>
+
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Chrome/" rel="tag"># Chrome</a>
+          
+            <a href="/tags/调试/" rel="tag"># 调试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/10/mpvue采坑/" rel="next" title="那些年我们一起追过的mpvue">
+                <i class="fa fa-chevron-left"></i> 那些年我们一起追过的mpvue
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MzE1Ny8xOTcwMw=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -500,8 +711,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -661,6 +881,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#各类断点使用时间概览"><span class="nav-number">1.</span> <span class="nav-text">各类断点使用时间概览</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码行断点"><span class="nav-number">2.</span> <span class="nav-text">代码行断点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在-DevTools-中设置代码行断点"><span class="nav-number">2.1.</span> <span class="nav-text">在 DevTools 中设置代码行断点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码中的代码行断点"><span class="nav-number">2.2.</span> <span class="nav-text">代码中的代码行断点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#条件代码行断点"><span class="nav-number">2.3.</span> <span class="nav-text">条件代码行断点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#管理代码行断点"><span class="nav-number">2.4.</span> <span class="nav-text">管理代码行断点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DOM-更改断点"><span class="nav-number">3.</span> <span class="nav-text">DOM 更改断点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#XHR-Fetch-断点"><span class="nav-number">4.</span> <span class="nav-text">XHR/Fetch 断点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#事件侦听器断点"><span class="nav-number">5.</span> <span class="nav-text">事件侦听器断点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常断点"><span class="nav-number">6.</span> <span class="nav-text">异常断点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数断点"><span class="nav-number">7.</span> <span class="nav-text">函数断点</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -830,6 +1067,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=7.0.1"></script>
+<script src="/js/src/post-details.js?v=7.0.1"></script>
+
+
 
   
 
@@ -845,6 +1086,23 @@
 
   
 
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/03/22/Chrome的断点调试/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
 
 
   
