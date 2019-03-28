@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[withCredentials与CORS的爱恨情仇]]></title>
+    <url>%2F2019%2F03%2F28%2FwithCredentials%E4%B8%8ECORS%E7%9A%84%E7%88%B1%E6%81%A8%E6%83%85%E4%BB%87%2F</url>
+    <content type="text"><![CDATA[在日常开发中，跨域是我们老生常谈的话题。为什么存在跨域呢？因为浏览器有同源策略，而我们实际的开发过程中时长存在哪种场景呢：从a域向b域发请求，浏览器就开始搞事情了。总之一句话，一切为了安全。这里不再去赘述跨域的一个个解决办法，比如我们常说的JSONP、domian、代理、postMessage等方式，此文仅简单记录CORS的一些琐碎。 cookie 一般用于身份验证 服务端通过在响应头加入Set-Cookie字段向浏览器写cookie 浏览器向服务端发送请求时可以将cookie附加在HTTP请求的头字段Cookie中 服务端可以设置httpOnly，使得前端无法操作cookie 服务端可以设置secure，保证在https的加密通信中传输以防截获 CORS 跨域资源共享,它允许浏览器向跨源服务器发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制 需要浏览器和服务器同时支持 JSONP只支持GET请求，CORS支持所有类型的HTTP请求 引用阮一峰老师的一段话：“整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。” 两种请求 简单请求 非简单请求 简单请求 浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。 Origin 字段表示请求源，服务器根据这个值决定是否同意这次请求。 Origin 不在许可范围内 响应头信息没有包含Access-Control-Allow-Origin字段，被XMLHttpRequest的onerror回调函数捕获。 注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。 Origin 在许可范围内 服务器返回的响应，会多出几个头信息字段: Access-Control-Allow-Origin: 该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求 Access-Control-Allow-Credentials: 该字段可选。它的值是一个布尔值，表示是否允许发送Cookie Access-Control-Expose-Headers 非简单请求 对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json 正式通信之前，增加一次预检请求（preflight）。 请求方法是OPTIONS 头信息里面，关键字段是Origin，表示请求来自哪个源 浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。 通过了预检请求后，就会发出正常的CORS请求，会有一个Origin头信息字段。服务器的回应，也都会有一个 Access-Control-Allow-Origin 头信息字段。 withCredentials CORS请求默认不发送Cookie和HTTP认证信息。 如果要把Cookie发到服务器,需要client + server 共同努力： 服务端：设置Access-Control-Allow-Credentials: true 客户端：设置withCredentials属性 12var xhr = new XMLHttpRequest();xhr.withCredentials = true; 永远不会影响到同源请求 如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号!!!!!必须指定明确的、与请求网页一致的域名！！！！！具体参见Reason: Credential is not supported if the CORS header ‘Access-Control-Allow-Origin’ is ‘*’]]></content>
+      <categories>
+        <category>技术</category>
+      </categories>
+      <tags>
+        <tag>原创</tag>
+        <tag>跨域</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Chrome的断点调试]]></title>
     <url>%2F2019%2F03%2F22%2FChrome%E7%9A%84%E6%96%AD%E7%82%B9%E8%B0%83%E8%AF%95%2F</url>
     <content type="text"><![CDATA[前端开发离不开浏览器环境的debug，chrome为我们提供了断点调试的诸多便利，利用断点调试我们可以触达代码逻辑细微之处、DOM元素变化的瞬间、XHR请求的发生、事件监听的触发等等；有助于我们对bug的追踪排查。这篇笔记记录chrome断点调试js代码的种种功能，在开发过程中提高我们的debug效率。 各类断点使用时间概览 断点类型 使用情况 代码行 在确切的代码区域中。 条件代码行 在确切的代码区域中，且仅当其他一些条件成立时。 DOM 在更改或移除特定 DOM 节点或其子级的代码中。 XHR 当 XHR 网址包含字符串模式时。 事件侦听器 在触发 click 等事件后运行的代码中。 异常 在引发已捕获或未捕获异常的代码行中。 函数 任何时候调用特定函数时。 代码行断点在 DevTools 中设置代码行断点在知道需要调查的确切代码区域时，可以使用代码行断点。 DevTools 始终会在执行此代码行之前暂停。 在 DevTools 中设置代码行断点： 点击 Sources 标签。 打开包含您想要中断的代码行的文件。 转至代码行。 代码行的左侧是行号列。 点击行号列。 行号列顶部将显示一个蓝色图标。 代码中的代码行断点在代码中调用 debugger 可在该行暂停。 此操作相当于使用代码行断点，只是此断点是在代码中设置，而不是在 DevTools 界面中设置。 1234console.log(&apos;a&apos;);console.log(&apos;b&apos;);debugger;console.log(&apos;c&apos;); 条件代码行断点如果知道需要调查的确切代码区域，但只想在其他一些条件成立时进行暂停，则可使用条件代码行断点。 若要设置条件代码行断点： 点击 Sources 标签。 打开包含您想要中断的代码行的文件。 转至代码行。 代码行的左侧是行号列。 右键点击行号列。 选择 Add conditional breakpoint。 代码行下方将显示一个对话框。 在对话框中输入条件。 按 Enter 键激活断点。 行号列顶部将显示一个橙色图标。 管理代码行断点使用 Breakpoints 窗格可以从单个位置停用或移除代码行断点。 勾选条目旁的复选框可以停用相应的断点。 右键点击条目可以移除相应的断点。 右键点击 Breakpoints 窗格中的任意位置可以取消激活所有断点、停用所有断点，或移除所有断点。 停用所有断点相当于取消选中每个断点。 取消激活所有断点可让 DevTools 忽略所有代码行断点，但同时会继续保持其启用状态，以使这些断点的状态与取消激活之前相同。 DOM 更改断点如果想要暂停更改 DOM 节点或其子级的代码，可以使用 DOM 更改断点。 若要设置 DOM 更改断点： 点击 Elements 标签。 转至要设置断点的元素。 右键点击此元素。 将鼠标指针悬停在 Break on 上，然后选择 Subtree modifications、Attribute modifications 或 Node removal。 XHR/Fetch 断点如果想在 XHR 的请求网址包含指定字符串时中断，可以使用 XHR 断点。 DevTools 会在 XHR 调用 send() 的代码行暂停。 注：此功能还可用于 Fetch 请求。 例如，在您发现您的页面请求的是错误网址，并且您想要快速找到导致错误请求的 AJAX 或 Fetch 源代码时，这类断点很有用。 若要设置 XHR 断点： 点击 Sources 标签。 展开 XHR Breakpoints 窗格。 点击 Add breakpoint。 输入要对其设置断点的字符串。 DevTools 会在 XHR 的请求网址的任意位置显示此字符串时暂停。 按 Enter 键以确认。 事件侦听器断点如果想要暂停触发事件后运行的事件侦听器代码，可以使用事件侦听器断点。 您可以选择 click 等特定事件或所有鼠标事件等事件类别。 点击 Sources 标签。 展开 Event Listener Breakpoints 窗格。 DevTools 会显示 Animation 等事件类别列表。 勾选这些类别之一以在触发该类别的任何事件时暂停，或者展开类别并勾选特定事件。 异常断点如果想要在引发已捕获或未捕获异常的代码行暂停，可以使用异常断点。 点击 Sources 标签。 点击 Pause on exceptions。 启用后，此按钮变为蓝色。 （可选）如果除未捕获异常以外，还想在引发已捕获异常时暂停，则勾选 Pause On Caught Exceptions 复选框。 函数断点函数断点 如果想要在调用特定函数时暂停，可以调用 debug(functionName)，其中 functionName 是要调试的函数。 您可以将 debug() 插入您的代码（如 console.log() 语句），也可以从 DevTools 控制台中进行调用。 debug() 相当于在第一行函数中设置代码行断点。 123456function sum(a, b) &#123; let result = a + b; // DevTools pauses on this line. return result;&#125;debug(sum); // Pass the function object, not a string.sum();]]></content>
@@ -71,8 +83,8 @@
         <category>技术</category>
       </categories>
       <tags>
-        <tag>原创</tag>
         <tag>Electron</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
   <entry>
@@ -120,9 +132,9 @@
         <category>技术</category>
       </categories>
       <tags>
+        <tag>原创</tag>
         <tag>GitPage</tag>
         <tag>Hexo</tag>
-        <tag>原创</tag>
       </tags>
   </entry>
 </search>

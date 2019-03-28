@@ -107,30 +107,25 @@
 
 
 
-  <meta name="description" content="Creator编辑器  AnySDK多渠道打包工具  起源自Cocos2D-iPhone，创始人Ricardo Quesada。Cocos2D-X创始人王哲。 背后公司为触控科技，起步于2008年初创建的CocoaChina社区，专注于苹果产品和iOS系统开发，后推出开源2D 游戏引擎 Cocos2d。 官方的关于我们  所有分支游戏引擎均是MIT许可证下发布。 Cocos2dxX代表着Cross">
-<meta name="keywords" content="Cocos2dx">
+  <meta name="description" content="在日常开发中，跨域是我们老生常谈的话题。为什么存在跨域呢？因为浏览器有同源策略，而我们实际的开发过程中时长存在哪种场景呢：从a域向b域发请求，浏览器就开始搞事情了。总之一句话，一切为了安全。这里不再去赘述跨域的一个个解决办法，比如我们常说的JSONP、domian、代理、postMessage等方式，此文仅简单记录CORS的一些琐碎。 cookie 一般用于身份验证 服务端通过在响应头加入Set-">
+<meta name="keywords" content="原创,跨域">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Cocos2dx 记录">
-<meta property="og:url" content="https://etc1208.github.io/2018/05/12/Cocos2dx-记录/index.html">
+<meta property="og:title" content="withCredentials与CORS的爱恨情仇">
+<meta property="og:url" content="https://etc1208.github.io/2019/03/28/withCredentials与CORS的爱恨情仇/index.html">
 <meta property="og:site_name" content="杨赫的网络日志">
-<meta property="og:description" content="Creator编辑器  AnySDK多渠道打包工具  起源自Cocos2D-iPhone，创始人Ricardo Quesada。Cocos2D-X创始人王哲。 背后公司为触控科技，起步于2008年初创建的CocoaChina社区，专注于苹果产品和iOS系统开发，后推出开源2D 游戏引擎 Cocos2d。 官方的关于我们  所有分支游戏引擎均是MIT许可证下发布。 Cocos2dxX代表着Cross">
+<meta property="og:description" content="在日常开发中，跨域是我们老生常谈的话题。为什么存在跨域呢？因为浏览器有同源策略，而我们实际的开发过程中时长存在哪种场景呢：从a域向b域发请求，浏览器就开始搞事情了。总之一句话，一切为了安全。这里不再去赘述跨域的一个个解决办法，比如我们常说的JSONP、domian、代理、postMessage等方式，此文仅简单记录CORS的一些琐碎。 cookie 一般用于身份验证 服务端通过在响应头加入Set-">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="https://etc1208.github.io/images/cocos2dx/15119227265813.jpg">
-<meta property="og:image" content="https://etc1208.github.io/images/cocos2dx/15119228044624.jpg">
-<meta property="og:image" content="https://etc1208.github.io/images/cocos2dx/15119233874329.jpg">
-<meta property="og:image" content="https://etc1208.github.io/images/cocos2dx/15119236683850.jpg">
-<meta property="og:updated_time" content="2019-03-11T17:26:06.000Z">
+<meta property="og:updated_time" content="2019-03-28T06:43:11.258Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cocos2dx 记录">
-<meta name="twitter:description" content="Creator编辑器  AnySDK多渠道打包工具  起源自Cocos2D-iPhone，创始人Ricardo Quesada。Cocos2D-X创始人王哲。 背后公司为触控科技，起步于2008年初创建的CocoaChina社区，专注于苹果产品和iOS系统开发，后推出开源2D 游戏引擎 Cocos2d。 官方的关于我们  所有分支游戏引擎均是MIT许可证下发布。 Cocos2dxX代表着Cross">
-<meta name="twitter:image" content="https://etc1208.github.io/images/cocos2dx/15119227265813.jpg">
+<meta name="twitter:title" content="withCredentials与CORS的爱恨情仇">
+<meta name="twitter:description" content="在日常开发中，跨域是我们老生常谈的话题。为什么存在跨域呢？因为浏览器有同源策略，而我们实际的开发过程中时长存在哪种场景呢：从a域向b域发请求，浏览器就开始搞事情了。总之一句话，一切为了安全。这里不再去赘述跨域的一个个解决办法，比如我们常说的JSONP、domian、代理、postMessage等方式，此文仅简单记录CORS的一些琐碎。 cookie 一般用于身份验证 服务端通过在响应头加入Set-">
 
 
 
 
 
 
-  <link rel="canonical" href="https://etc1208.github.io/2018/05/12/Cocos2dx-记录/">
+  <link rel="canonical" href="https://etc1208.github.io/2019/03/28/withCredentials与CORS的爱恨情仇/">
 
 
 
@@ -140,7 +135,7 @@
   };
 </script>
 
-  <title>Cocos2dx 记录 | 杨赫的网络日志</title>
+  <title>withCredentials与CORS的爱恨情仇 | 杨赫的网络日志</title>
   
 
 
@@ -411,7 +406,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2018/05/12/Cocos2dx-记录/">
+    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2019/03/28/withCredentials与CORS的爱恨情仇/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="杨赫">
@@ -428,7 +423,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">Cocos2dx 记录
+          <h2 class="post-title" itemprop="name headline">withCredentials与CORS的爱恨情仇
 
               
             
@@ -455,24 +450,12 @@
                 
               
 
-              <time title="Created: 2018-05-12 12:30:00" itemprop="dateCreated datePublished" datetime="2018-05-12T12:30:00+08:00">2018-05-12</time>
+              <time title="Created: 2019-03-28 12:26:24 / Modified: 14:43:11" itemprop="dateCreated datePublished" datetime="2019-03-28T12:26:24+08:00">2019-03-28</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-12 01:26:06" itemprop="dateModified" datetime="2019-03-12T01:26:06+08:00">2019-03-12</time>
               
             
           </span>
@@ -489,7 +472,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/转载/" itemprop="url" rel="index"><span itemprop="name">转载</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
 
                 
                 
@@ -531,95 +514,77 @@
       
 
       
-        <p>Creator编辑器</p>
+        <p>在日常开发中，跨域是我们老生常谈的话题。为什么存在跨域呢？因为浏览器有<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy" target="_blank" rel="noopener">同源策略</a>，<br>而我们实际的开发过程中时长存在哪种场景呢：从a域向b域发请求，浏览器就开始搞事情了。总之一句话，一切为了安全。这里不再去赘述跨域的一个个解决办法，比如我们常说的JSONP、domian、代理、postMessage等方式，此文仅简单记录CORS的一些琐碎。</p>
+<h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><ul>
+<li>一般用于身份验证</li>
+<li>服务端通过在响应头加入Set-Cookie字段向浏览器写cookie</li>
+<li>浏览器向服务端发送请求时可以将cookie附加在HTTP请求的头字段Cookie中</li>
+<li>服务端可以设置httpOnly，使得前端无法操作cookie</li>
+<li>服务端可以设置secure，保证在https的加密通信中传输以防截获</li>
+</ul>
+<h1 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h1><blockquote>
+<p>跨域资源共享,它允许浏览器向跨源服务器发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制</p>
+</blockquote>
 <ul>
-<li>AnySDK多渠道打包工具</li>
+<li><p>需要浏览器和服务器同时支持</p>
+</li>
+<li><p>JSONP只支持GET请求，CORS支持所有类型的HTTP请求</p>
+</li>
 </ul>
-<p>起源自Cocos2D-iPhone，创始人Ricardo Quesada。<br>Cocos2D-X创始人王哲。</p>
-<p>背后公司为触控科技，起步于2008年初创建的CocoaChina社区，专注于苹果产品和iOS系统开发，后推出开源2D 游戏引擎 Cocos2d。</p>
-<p><a href="http://www.cocos.com/docs/native/v3/about/about-us/zh.html" target="_blank" rel="noopener">官方的关于我们</a></p>
-<p><img src="/images/cocos2dx/15119227265813.jpg" alt></p>
-<p><img src="/images/cocos2dx/15119228044624.jpg" alt><br>所有分支游戏引擎均是MIT许可证下发布。</p>
-<h2 id="Cocos2dx"><a href="#Cocos2dx" class="headerlink" title="Cocos2dx"></a>Cocos2dx</h2><p>X代表着Cross，即交叉。因为Cocos2D-X为开发者提供了跨平台支持，通过C++语言把游戏逻辑一次编写即可编译到iOS、Android以及更多手机平台上运行。Cocos2D-X在中国拥有70%的开发者认可和使用比例。此外，Cocos2D-X在全球199个国家地区有40万开发者使用，而Cocos2D-X已经成为全球使用率最高的手机游戏引擎之一，在中国前10名收入最高的手机游戏产品中有8款产品是由Cocos2D-X引擎及工具开发的。</p>
-<p>现在看到的都是 v3.x 版本。3.x 和2.x相比，改动非常大。</p>
-<h3 id="Cocos2d-html5"><a href="#Cocos2d-html5" class="headerlink" title="Cocos2d-html5"></a>Cocos2d-html5</h3><p>Cocos2d-JS的一个重要模块，是一个面向Web的游戏引擎，采用Canvas或者WebGL渲染，并完全兼容HTML5规范，所以基于Cocos2d-JS开发的游戏天然可运行在所有支持HTML5规范的浏览器</p>
-<h3 id="Cocos2dx-js-FullVersion-全平台编译发布"><a href="#Cocos2dx-js-FullVersion-全平台编译发布" class="headerlink" title="Cocos2dx-js FullVersion 全平台编译发布"></a>Cocos2dx-js FullVersion 全平台编译发布</h3><p><a href="http://www.cocos.com/docs/js/1-about-cocos2d-js/1-1-a-brief-history/zh.html" target="_blank" rel="noopener">官网：1.1 Cocos2d-JS介绍</a></p>
-<p><strong>简单粗暴说就是用 Js 写，full version 可以js 写完后编译到全部平台：web 版翻译到 WebGl 或者 Canvas，使用的是 Cocos2dx-h5渲染；其他安卓、iOS、window等等均等于使用 js 调用底层 API, 使用的解析器是 SpiderMonkey。</strong></p>
+<p>引用阮一峰老师的一段话：“整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。<br>因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。”</p>
+<h2 id="两种请求"><a href="#两种请求" class="headerlink" title="两种请求"></a>两种请求</h2><ul>
+<li>简单请求</li>
+<li>非简单请求</li>
+</ul>
+<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><blockquote>
+<p>浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。</p>
+</blockquote>
+<p><code>Origin</code> 字段表示请求源，服务器根据这个值决定是否同意这次请求。</p>
+<ul>
+<li><code>Origin</code> 不在许可范围内</li>
+</ul>
+<p>响应头信息没有包含Access-Control-Allow-Origin字段，被XMLHttpRequest的onerror回调函数捕获。</p>
 <blockquote>
-<p>JavaScript代码由Mozilla的JavaScript虚拟机SpiderMonkey进行解析和运行，同时这个虚拟机被改造为支持Cocos2d-x的类型，数据结构和对象。SpiderMonkey本身是由C/C++开发的，不仅可嵌在浏览器中，也嵌入到任何C++的程序中使用。<br>SpiderMonkey负责脚本的解析运行，创建和检查JavaScript的数据结构，处理各种错误，提供安全检查，调试脚本的功能，并通过JSAPI实现C++代码的调用。通过这项技术，可让开发者能用纯JavaScript来开发原生游戏，游戏的开发更加高效，原型构建和验证更加便捷。</p>
+<p>注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。</p>
 </blockquote>
-<p>注：这种一般我都认为不靠谱，搜了下反馈确实不太靠谱。</p>
-<h3 id="Cocos2dx-js-LiteVersion-只做-Web"><a href="#Cocos2dx-js-LiteVersion-只做-Web" class="headerlink" title="Cocos2dx-js LiteVersion 只做 Web"></a>Cocos2dx-js LiteVersion 只做 Web</h3><blockquote>
-<p>如果您只关注于纯Web游戏开发，那么您还可以选择Cocos2d-JS Lite的版本，Lite版本提供Cocos2d-html5单引擎文件，可自由定制功能，并可直接嵌入到HTML页面可以开始游戏开发，提供更加简便的工作流，开发更加便捷，还兼具脚本文件体积小，性能高效等优点，具体的内容见后续的工作流章节的介绍。</p>
+<ul>
+<li><code>Origin</code> 在许可范围内</li>
+</ul>
+<p>服务器返回的响应，会多出几个头信息字段:</p>
+<ul>
+<li>Access-Control-Allow-Origin: 该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求</li>
+<li>Access-Control-Allow-Credentials: 该字段可选。它的值是一个布尔值，表示是否允许发送Cookie</li>
+<li>Access-Control-Expose-Headers</li>
+</ul>
+<h3 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h3><ul>
+<li><p>对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json</p>
+</li>
+<li><p>正式通信之前，增加一次预检请求（preflight）。</p>
+<ul>
+<li>请求方法是OPTIONS</li>
+<li>头信息里面，关键字段是Origin，表示请求来自哪个源</li>
+</ul>
+</li>
+</ul>
+<p>浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。</p>
+<ul>
+<li>通过了预检请求后，就会发出正常的CORS请求，会有一个Origin头信息字段。服务器的回应，也都会有一个 <code>Access-Control-Allow-Origin</code> 头信息字段。</li>
+</ul>
+<h2 id="withCredentials"><a href="#withCredentials" class="headerlink" title="withCredentials"></a>withCredentials</h2><blockquote>
+<p>CORS请求默认不发送Cookie和HTTP认证信息。</p>
 </blockquote>
-<h2 id="Cocos-Creator"><a href="#Cocos-Creator" class="headerlink" title="Cocos Creator"></a>Cocos Creator</h2><p><a href="http://docs.cocos.com/creator/manual/zh/getting-started/" target="_blank" rel="noopener">Cocos Creator 用户手册</a></p>
+<p>如果要把Cookie发到服务器,需要client + server 共同努力：</p>
+<ul>
+<li>服务端：设置Access-Control-Allow-Credentials: true</li>
+<li>客户端：设置withCredentials属性</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var xhr = new XMLHttpRequest();</span><br><span class="line">xhr.withCredentials = true;</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>cocos2d-x是游戏开发框架，Cocos Creator才称得上是完整的游戏引擎。 — 王哲</p>
+<p>永远不会影响到同源请求</p>
 </blockquote>
-<p>看了一小时 Cocos2dx 的文档我是拒绝的。看文档的时候就发现Cocos出过好几代编辑器， 但之前的槽点都很多。而直接下载引擎代码开发，打开一看简直毛骨悚然。<br>但是看了下 Cocos Creator，感觉很惊艳。</p>
-<p><img src="/images/cocos2dx/15119233874329.jpg" alt></p>
-<p><a href="http://docs.cocos.com/creator/manual/zh/getting-started/introduction.html" target="_blank" rel="noopener">Cocos Creator 官方介绍</a></p>
 <blockquote>
-<p>Q: Cocos Creator 是游戏引擎吗？<br>A: 它是一个完整的游戏开发解决方案，包括了 cocos2d-x 引擎的 JavaScript 实现（不需要学习一个新的引擎），以及能让你更快速开发游戏所需要的各种图形界面工具<br>Q: Cocos Creator 的编辑器是什么样的？<br>A: 完全为引擎定制打造，包含从设计、开发、预览、调试到发布的整个工作流所需的全功能一体化编辑器<br>Q: 我不会写程序，也能使用 Cocos Creator 吗？<br>A: 当然！Cocos Creator 编辑器提供面向设计和开发的两种工作流，提供简单顺畅的分工合作方式。<br>Q: 我使用 Cocos Creator 能开发面向哪些平台的游戏？<br>A: Cocos Creator 目前支持发布游戏到 Web、Android 和 iOS，以及点开即玩原生性能的 Cocos Play 手机页游平台，真正实现一次开发，全平台运行。</p>
+<p>如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号!!!!!必须指定明确的、与请求网页一致的域名！！！！！<br>具体参见<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials" target="_blank" rel="noopener">Reason: Credential is not supported if the CORS header ‘Access-Control-Allow-Origin’ is ‘*’</a></p>
 </blockquote>
-<p><img src="/images/cocos2dx/15119236683850.jpg" alt></p>
-<p><a href="https://www.zhihu.com/question/39663501/answer/82576709" target="_blank" rel="noopener">知乎上有人 po 出了他们公司的使用感想</a></p>
-<p>可以直接在 Chrome 中进行调试，即改即见，非常顺畅。</p>
-<p>Web平台：canvas 或者 webGL 可选</p>
-<p>支持 VS Code 管理和编辑项目脚本代码，可以轻松实现语法高亮、智能代码提示等功能。支持配置脚本一键编译。<a href="http://docs.cocos.com/creator/manual/zh/getting-started/coding-setup.html" target="_blank" rel="noopener">配置代码编辑环境</a> </p>
-<h3 id="搜到的各种负面反馈"><a href="#搜到的各种负面反馈" class="headerlink" title="搜到的各种负面反馈"></a>搜到的各种负面反馈</h3><ul>
-<li>cocos2dx 总在不断大改，持续学习成本高。【确实，cocos2dx 文档非常一般。但 Cocos Creator 文档非常完善。</li>
-<li>游戏从业者认为 jsbinding 性能要求绝对不能符合要求【但我们不是做游戏哇感觉 web 就够了</li>
-<li>2016年才发布，应该是存在了很多坑，具体可参见<a href="https://www.zhihu.com/question/39663501" target="_blank" rel="noopener">如何评价 Cocos2d-x 的新编辑器 Cocos Creator？</a></li>
-</ul>
-<h3 id="场景开发"><a href="#场景开发" class="headerlink" title="场景开发"></a>场景开发</h3><h4 id="节点-amp-组件"><a href="#节点-amp-组件" class="headerlink" title="节点 &amp; 组件"></a>节点 &amp; 组件</h4><p>Cocos Creator 的工作流程是以组件式开发为核心的，组件式架构也称作 组件-实体系统（或 Entity-Component System），简单的说，就是以组合而非继承的方式进行实体的构建。</p>
-<p>在 Cocos Creator 中，节点（Node）是承载组件的实体，我们通过将具有各种功能的 组件（Component） 挂载到节点上，来让节点具有各式各样的表现和功能。接下来我们看看如何在场景中创建节点和添加组件。</p>
-<h4 id="坐标系-amp-变换"><a href="#坐标系-amp-变换" class="headerlink" title="坐标系 &amp; 变换"></a>坐标系 &amp; 变换</h4><p>笛卡尔坐标系</p>
-<p>世界坐标系（World Coordinate）和本地坐标系（Local Coordinate）； 每个节点以父节点来算本地坐标系；本地坐标系会最后转成世界坐标系。</p>
-<p>锚点（Anchor） 是节点的另一个重要属性，它决定了节点以自身约束框中的哪一个点作为整个节点的位置。我们选中节点后看到变换工具出现的位置就是节点的锚点位置。</p>
-<h3 id="脚本开发"><a href="#脚本开发" class="headerlink" title="脚本开发"></a>脚本开发</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">cc.Class(&#123;</span><br><span class="line">    extends: cc.Component,</span><br><span class="line"></span><br><span class="line">    properties: &#123;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    // use this for initialization</span><br><span class="line">    onLoad: function () &#123;</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    // called every frame, uncomment this function to activate update callback</span><br><span class="line">    update: function (dt) &#123;</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>onLoad<br>start<br>update<br>lateUpdate<br>onDestroy<br>onEnable<br>onDisable</p>
-<h4 id="动作系统"><a href="#动作系统" class="headerlink" title="动作系统"></a>动作系统</h4><blockquote>
-<p>动作系统并不能取代动画系统，动作系统提供的是面向程序员的 API 接口，而动画系统则是提供在编辑器中来设计的。同时，他们服务于不同的使用场景，动作系统比较适合来制作简单的形变和位移动画，而动画系统则强大许多，美术可以用编辑器制作支持各种属性，包含运动轨迹和缓动的复杂动画。</p>
-</blockquote>
-<p><a href="http://docs.cocos.com/creator/manual/zh/scripting/action-list.html" target="_blank" rel="noopener">动作列表</a></p>
-<h4 id="网络接口"><a href="#网络接口" class="headerlink" title="网络接口"></a>网络接口</h4><h4 id="脚本引用"><a href="#脚本引用" class="headerlink" title="脚本引用"></a>脚本引用</h4><p>支持 ES2015 TypeScript</p>
-<p>模块化脚本 &amp; 插件脚本</p>
-<p>脚本加载顺序如下：</p>
-<ol>
-<li>Cocos2d 引擎</li>
-<li>插件脚本（有多个的话按项目中的路径字母顺序依次加载）[可以用于配置</li>
-<li>普通脚本（打包后只有一个文件，内部按 require 的依赖顺序依次初始化）</li>
-</ol>
-<blockquote>
-<p>目标平台兼容性<br>插件发布后将直接被目标平台加载，所以请检查插件的目标平台兼容性，否则项目发布后插件有可能不能运行。<br>目标平台不提供原生 node.js 支持<br>例如很多 npm 模块都直接或间接依赖于 node.js，这样的话发布到原生或网页平台后是不能用的。<br>依赖 DOM API 的插件将无法发布到原生平台<br>网页中可以使用大量的前端插件，例如 jQuery，不过它们有可能依赖于浏览器的 DOM API。依赖这些 API 的插件不能用于原生平台中。</p>
-</blockquote>
-<h2 id="子系统"><a href="#子系统" class="headerlink" title="子系统"></a>子系统</h2><p>前几个系统应该是设计师重点要看的。</p>
-<h3 id="图像和渲染"><a href="#图像和渲染" class="headerlink" title="图像和渲染"></a>图像和渲染</h3><p>自带的各种组件，绘图系统、外部资源家在，还有摄像头。</p>
-<h3 id="UI系统"><a href="#UI系统" class="headerlink" title="UI系统"></a>UI系统</h3><p><a href="http://docs.cocos.com/creator/manual/zh/ui/multi-resolution.html" target="_blank" rel="noopener">多分辨率适配</a></p>
-<h3 id="动画"><a href="#动画" class="headerlink" title="动画"></a>动画</h3><p>这个动画编辑器感觉忒难用。。。</p>
-<h3 id="物理碰撞"><a href="#物理碰撞" class="headerlink" title="物理碰撞"></a>物理碰撞</h3><h2 id="summary"><a href="#summary" class="headerlink" title="summary"></a>summary</h2><p>使用 Cocos Creator 做教研配套目前来看的优势 &amp; 劣势。</p>
-<h3 id="还需要确定的点："><a href="#还需要确定的点：" class="headerlink" title="还需要确定的点："></a>还需要确定的点：</h3><ol>
-<li>是否能够插入我们自己的统计和用户代码等？如果编译到原生，是否丢失？【目前尝试 js 应该是可以的，但原生那边不知道怎么处理，此外存在兼容问题</li>
-<li>如何放到视频上进行交互？【视频上的是否直接使用 其他js 库更好。</li>
-<li>进一步的需求有哪些？</li>
-</ol>
-<h3 id="优势："><a href="#优势：" class="headerlink" title="优势："></a>优势：</h3><ul>
-<li>工作流非常顺畅，且可以设计和程序分工合作，都可以直接看到效果。</li>
-<li>配套文档很赞。可以考虑通过培训，建立设计师和程序都可使用的完整开发流程。</li>
-<li>可以直接打包生成资源包上线。</li>
-<li>花了几个小时跟着文档写了下demo，感觉上手度不错。</li>
-</ul>
-<h3 id="劣势"><a href="#劣势" class="headerlink" title="劣势"></a>劣势</h3><ul>
-<li>需要培训。设计师需要学会游戏设计，如果运营来做的话也需要一定的基础。此外脚本方面也需要学习游戏脚本开发设计，需要熟悉游戏开发术语、流程、Cocos2dx-js 的 API 等。</li>
-<li>流程上的磨合可能会耗费一定时间和精力，这边的人基本都没有做过游戏开发。</li>
-<li>目前发布不到两年，在持续迭代，需要踩坑。</li>
-<li>太复杂的成本可能会比较大，例如踩到内存的坑</li>
-<li>目前技术积累为0。 有组件库等可能会好一些。c</li>
-</ul>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ul>
-<li><a href="http://www.cocos.com/" target="_blank" rel="noopener">cocos 官网</a></li>
-</ul>
 
       
     </div>
@@ -643,7 +608,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Cocos2dx/" rel="tag"># Cocos2dx</a>
+            <a href="/tags/原创/" rel="tag"># 原创</a>
+          
+            <a href="/tags/跨域/" rel="tag"># 跨域</a>
           
         </div>
       
@@ -656,8 +623,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/02/11/Electron新手入门/" rel="next" title="Electron新手入门">
-                <i class="fa fa-chevron-left"></i> Electron新手入门
+              <a href="/2019/03/22/Chrome的断点调试/" rel="next" title="Chrome的断点调试">
+                <i class="fa fa-chevron-left"></i> Chrome的断点调试
               </a>
             
           </div>
@@ -665,10 +632,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/06/12/基于Verdaccio的npm私服/" rel="prev" title="基于Verdaccio的npm私服">
-                基于Verdaccio的npm私服 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -900,7 +863,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Cocos2dx"><span class="nav-number">1.</span> <span class="nav-text">Cocos2dx</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cocos2d-html5"><span class="nav-number">1.1.</span> <span class="nav-text">Cocos2d-html5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cocos2dx-js-FullVersion-全平台编译发布"><span class="nav-number">1.2.</span> <span class="nav-text">Cocos2dx-js FullVersion 全平台编译发布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cocos2dx-js-LiteVersion-只做-Web"><span class="nav-number">1.3.</span> <span class="nav-text">Cocos2dx-js LiteVersion 只做 Web</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cocos-Creator"><span class="nav-number">2.</span> <span class="nav-text">Cocos Creator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#搜到的各种负面反馈"><span class="nav-number">2.1.</span> <span class="nav-text">搜到的各种负面反馈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景开发"><span class="nav-number">2.2.</span> <span class="nav-text">场景开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#节点-amp-组件"><span class="nav-number">2.2.1.</span> <span class="nav-text">节点 &amp; 组件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#坐标系-amp-变换"><span class="nav-number">2.2.2.</span> <span class="nav-text">坐标系 &amp; 变换</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#脚本开发"><span class="nav-number">2.3.</span> <span class="nav-text">脚本开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#生命周期"><span class="nav-number">2.3.1.</span> <span class="nav-text">生命周期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#动作系统"><span class="nav-number">2.3.2.</span> <span class="nav-text">动作系统</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#网络接口"><span class="nav-number">2.3.3.</span> <span class="nav-text">网络接口</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#脚本引用"><span class="nav-number">2.3.4.</span> <span class="nav-text">脚本引用</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子系统"><span class="nav-number">3.</span> <span class="nav-text">子系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#图像和渲染"><span class="nav-number">3.1.</span> <span class="nav-text">图像和渲染</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UI系统"><span class="nav-number">3.2.</span> <span class="nav-text">UI系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#动画"><span class="nav-number">3.3.</span> <span class="nav-text">动画</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#物理碰撞"><span class="nav-number">3.4.</span> <span class="nav-text">物理碰撞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#summary"><span class="nav-number">4.</span> <span class="nav-text">summary</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#还需要确定的点："><span class="nav-number">4.1.</span> <span class="nav-text">还需要确定的点：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优势："><span class="nav-number">4.2.</span> <span class="nav-text">优势：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#劣势"><span class="nav-number">4.3.</span> <span class="nav-text">劣势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reference"><span class="nav-number">5.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie"><span class="nav-number">1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CORS"><span class="nav-number">2.</span> <span class="nav-text">CORS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两种请求"><span class="nav-number">2.1.</span> <span class="nav-text">两种请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单请求"><span class="nav-number">2.1.1.</span> <span class="nav-text">简单请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非简单请求"><span class="nav-number">2.1.2.</span> <span class="nav-text">非简单请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#withCredentials"><span class="nav-number">2.2.</span> <span class="nav-text">withCredentials</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1098,7 +1061,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2018/05/12/Cocos2dx-记录/'
+    refer: '2019/03/28/withCredentials与CORS的爱恨情仇/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
