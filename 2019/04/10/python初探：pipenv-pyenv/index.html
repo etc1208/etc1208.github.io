@@ -107,25 +107,25 @@
 
 
 
-  <meta name="description" content="这里简要记录 GitPage + Hexo 快速建立个人站点的过程。建站方式很多，依托的平台不尽相同，我选择GitPage+Hexo，其具有操作简单、维护成本低、文档详细等优势。网上已经有很多此类教程，此文并无过多创新，仅在记录自己建站中的操作步骤、相关参考文档等，力求简明扼要。 环境 mac os 10.11.6 node v8.14.0 yarn v1.13.0 git v2.10.1 hex">
-<meta name="keywords" content="原创,GitPage,Hexo">
+  <meta name="description" content="本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。 #pyenv  pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本">
+<meta name="keywords" content="pyenv,pipenv">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GitPage+Hexo建站">
-<meta property="og:url" content="https://etc1208.github.io/2017/04/01/GitPage-Hexo建站/index.html">
+<meta property="og:title" content="python初探：pyenv&amp;pipenv">
+<meta property="og:url" content="https://etc1208.github.io/2019/04/10/python初探：pipenv-pyenv/index.html">
 <meta property="og:site_name" content="杨赫的网络日志">
-<meta property="og:description" content="这里简要记录 GitPage + Hexo 快速建立个人站点的过程。建站方式很多，依托的平台不尽相同，我选择GitPage+Hexo，其具有操作简单、维护成本低、文档详细等优势。网上已经有很多此类教程，此文并无过多创新，仅在记录自己建站中的操作步骤、相关参考文档等，力求简明扼要。 环境 mac os 10.11.6 node v8.14.0 yarn v1.13.0 git v2.10.1 hex">
+<meta property="og:description" content="本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。 #pyenv  pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-22T05:30:37.207Z">
+<meta property="og:updated_time" content="2019-04-10T06:43:27.766Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GitPage+Hexo建站">
-<meta name="twitter:description" content="这里简要记录 GitPage + Hexo 快速建立个人站点的过程。建站方式很多，依托的平台不尽相同，我选择GitPage+Hexo，其具有操作简单、维护成本低、文档详细等优势。网上已经有很多此类教程，此文并无过多创新，仅在记录自己建站中的操作步骤、相关参考文档等，力求简明扼要。 环境 mac os 10.11.6 node v8.14.0 yarn v1.13.0 git v2.10.1 hex">
+<meta name="twitter:title" content="python初探：pyenv&amp;pipenv">
+<meta name="twitter:description" content="本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。 #pyenv  pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本">
 
 
 
 
 
 
-  <link rel="canonical" href="https://etc1208.github.io/2017/04/01/GitPage-Hexo建站/">
+  <link rel="canonical" href="https://etc1208.github.io/2019/04/10/python初探：pipenv-pyenv/">
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>GitPage+Hexo建站 | 杨赫的网络日志</title>
+  <title>python初探：pyenv&pipenv | 杨赫的网络日志</title>
   
 
 
@@ -406,7 +406,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2017/04/01/GitPage-Hexo建站/">
+    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2019/04/10/python初探：pipenv-pyenv/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="杨赫">
@@ -423,7 +423,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">GitPage+Hexo建站
+          <h2 class="post-title" itemprop="name headline">python初探：pyenv&pipenv
 
               
             
@@ -450,24 +450,12 @@
                 
               
 
-              <time title="Created: 2017-04-01 10:09:14" itemprop="dateCreated datePublished" datetime="2017-04-01T10:09:14+08:00">2017-04-01</time>
+              <time title="Created: 2019-04-10 12:08:31 / Modified: 14:43:27" itemprop="dateCreated datePublished" datetime="2019-04-10T12:08:31+08:00">2019-04-10</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">Edited on</span>
-                
-                <time title="Modified: 2019-03-22 13:30:37" itemprop="dateModified" datetime="2019-03-22T13:30:37+08:00">2019-03-22</time>
               
             
           </span>
@@ -484,7 +472,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
 
                 
                 
@@ -526,75 +514,48 @@
       
 
       
-        <p>这里简要记录 <a href="https://pages.github.com/" target="_blank" rel="noopener">GitPage</a> + <a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a> 快速建立个人站点的过程。建站方式很多，依托的平台不尽相同，我选择GitPage+Hexo，其具有操作简单、维护成本低、文档详细等优势。网上已经有很多此类教程，此文并无过多创新，仅在记录自己建站中的操作步骤、相关参考文档等，力求简明扼要。</p>
-<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
-<li>mac os 10.11.6</li>
-<li>node v8.14.0</li>
-<li>yarn v1.13.0</li>
-<li>git v2.10.1</li>
-<li>hexo v3.8.0</li>
-<li>next v7.0.1</li>
-</ul>
-<h2 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h2><h3 id="创建Pages项目"><a href="#创建Pages项目" class="headerlink" title="创建Pages项目"></a>创建Pages项目</h3><p>创建一个名称为{yourusername}.github.io的新仓库即可。其中的 <code>yourusername</code> 填写自己的用户名，Github会识别并自动将该仓库设为Github Pages。用户主页是唯一的，填其他名称只会被当成普通项目。</p>
-<h3 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h3><p>Github Pages部署分支设置中，一般分为：</p>
-<ul>
-<li>master 分支</li>
-<li>gh-pages 分支（需要手动创建）</li>
-</ul>
-<p>我的做法：</p>
-<ul>
-<li><code>blog-src</code> 分支用于存放源码</li>
-<li><code>master</code> 分支用于部署</li>
-</ul>
-<h2 id="Hexo"><a href="#Hexo" class="headerlink" title="Hexo"></a>Hexo</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ yarn global add hexo-cli</span><br></pre></td></tr></table></figure>
-<h3 id="创建hexo项目"><a href="#创建hexo项目" class="headerlink" title="创建hexo项目"></a>创建hexo项目</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init [projectname]</span><br></pre></td></tr></table></figure>
-<h3 id="拉取Github项目到本地"><a href="#拉取Github项目到本地" class="headerlink" title="拉取Github项目到本地"></a>拉取Github项目到本地</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/yourusername/yourprojectname.git</span><br></pre></td></tr></table></figure>
-<p>把之前生成的hexo项目文件夹下的内容全部复制过来。</p>
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><ul>
-<li>hexo init [folder]: 新建项目</li>
-<li>hexo new [post_title]: 新建文章</li>
-<li>hexo generate [-d]: 生成静态文件</li>
-<li>hexo serve [-p port]: 启动本地服务器。默认访问网址为： <a href="http://localhost:4000/" target="_blank" rel="noopener">http://localhost:4000/</a></li>
-<li>hexo deploy [-g]: 部署</li>
-<li>hexo clean: 清除缓存</li>
-</ul>
+        <p>本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。</p>
+<p>作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。</p>
+<p>#pyenv</p>
 <blockquote>
-<p>具体参考：<a href="https://hexo.io/zh-cn/docs/commands.html" target="_blank" rel="noopener">hexo命令</a></p>
+<p>pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本的Python. (类比于node版本管理工具nvm)</p>
 </blockquote>
-<h3 id="更文步骤"><a href="#更文步骤" class="headerlink" title="更文步骤"></a>更文步骤</h3><p><code>启本地服务</code> - <code>新建&amp;编写文章</code> - <code>生成静态文件</code> - <code>部署</code></p>
+<h2 id="Mac安装pyenv"><a href="#Mac安装pyenv" class="headerlink" title="Mac安装pyenv"></a>Mac安装pyenv</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 安装</span><br><span class="line">$ brew install pyenv</span><br><span class="line"></span><br><span class="line">// 升级</span><br><span class="line">$ brew upgrade pyenv</span><br></pre></td></tr></table></figure>
+<h2 id="pyenv安装Python"><a href="#pyenv安装Python" class="headerlink" title="pyenv安装Python"></a>pyenv安装Python</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ pyenv install 3.7.0 (根据自身需要安装不同版本)</span><br><span class="line">$ pyenv rehash</span><br></pre></td></tr></table></figure>
+<h3 id="可能遇到的报错："><a href="#可能遇到的报错：" class="headerlink" title="可能遇到的报错："></a>可能遇到的报错：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">BUILD FAILED (OS X 10.14.3 using python-build 20180424)</span><br><span class="line"></span><br><span class="line">Inspect or clean up the working tree at /var/folders/db/sh5sm60124j89wcqhdck3rnm0000gn/T/python-build.20190410120716.2695</span><br><span class="line">Results logged to /var/folders/db/sh5sm60124j89wcqhdck3rnm0000gn/T/python-build.20190410120716.2695.log</span><br><span class="line"></span><br><span class="line">Last 10 log lines:</span><br><span class="line">  File &quot;/private/var/folders/db/sh5sm60124j89wcqhdck3rnm0000gn/T/python-build.20190410120716.2695/Python-3.7.0/Lib/ensurepip/__main__.py&quot;, line 5, in &lt;module&gt;</span><br><span class="line">    sys.exit(ensurepip._main())</span><br><span class="line">  File &quot;/private/var/folders/db/sh5sm60124j89wcqhdck3rnm0000gn/T/python-build.20190410120716.2695/Python-3.7.0/Lib/ensurepip/__init__.py&quot;, line 204, in _main</span><br><span class="line">    default_pip=args.default_pip,</span><br><span class="line">  File &quot;/private/var/folders/db/sh5sm60124j89wcqhdck3rnm0000gn/T/python-build.20190410120716.2695/Python-3.7.0/Lib/ensurepip/__init__.py&quot;, line 117, in _bootstrap</span><br><span class="line">    return _run_pip(args + [p[0] for p in _PROJECTS], additional_paths)</span><br><span class="line">  File &quot;/private/var/folders/db/sh5sm60124j89wcqhdck3rnm0000gn/T/python-build.20190410120716.2695/Python-3.7.0/Lib/ensurepip/__init__.py&quot;, line 27, in _run_pip</span><br><span class="line">    import pip._internal</span><br><span class="line">zipimport.ZipImportError: can&apos;t decompress data; zlib not available</span><br><span class="line">make: *** [install] Error 1</span><br></pre></td></tr></table></figure>
+<p>解决办法：注意最后两行，说明找不到zlib, 同样使用brew安装</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install zlib</span><br></pre></td></tr></table></figure>
+<p>按照提示，还需要设置环境变量, 在 <code>~/.zshrc</code> 中添加如下设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># For compilers to find zlib you may need to set:</span><br><span class="line">export LDFLAGS=&quot;$&#123;LDFLAGS&#125; -L/usr/local/opt/zlib/lib&quot;</span><br><span class="line">export CPPFLAGS=&quot;$&#123;CPPFLAGS&#125; -I/usr/local/opt/zlib/include&quot;</span><br><span class="line"></span><br><span class="line">#For pkg-config to find zlib you may need to set:</span><br><span class="line">export PKG_CONFIG_PATH=&quot;$&#123;PKG_CONFIG_PATH&#125; /usr/local/opt/zlib/lib/pkgconfig&quot;</span><br></pre></td></tr></table></figure>
+<p>然后执行命令安装python即可。(到此为止，python3.7.0安装完成了，当然这里没有将sqlite3编译完成，这个可以通过 <code>brew install sqlite</code> 安装即可)</p>
+<h2 id="pyenv切换Python"><a href="#pyenv切换Python" class="headerlink" title="pyenv切换Python"></a>pyenv切换Python</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">// 版本检测</span><br><span class="line">$ pyenv versions</span><br><span class="line"></span><br><span class="line">// 全局切换</span><br><span class="line">$ pyenv global x.x.x</span><br><span class="line"></span><br><span class="line">// 局部切换</span><br><span class="line">$ pyenv local x.x.x</span><br></pre></td></tr></table></figure>
+<h1 id="pipenv"><a href="#pipenv" class="headerlink" title="pipenv"></a>pipenv</h1><blockquote>
+<p>pipenv是Python官方推荐的包管理工具。 它综合了 virtualenv , pip 和 pyenv 三者的功能。你可以使用pipenv这一个工具来安装、卸载、跟踪和记录依赖性，并创建、使用和组织你的虚拟环境</p>
+</blockquote>
 <blockquote>
-<p>具体参考：<a href="https://hexo.io/zh-cn/docs/writing.html" target="_blank" rel="noopener">hexo写作</a></p>
+<p>pipenv使用 Pipfile 和 Pipfile.lock 来管理依赖包，并自动维护 Pipfile ，同时生成 Pipfile.lock 来锁定安装包的版本和依赖信息。相比pip需要手动维护requirements.txt 中的安装包和版本，具有很大的进步。</p>
 </blockquote>
-<h3 id="配置-config-yml"><a href="#配置-config-yml" class="headerlink" title="配置_config.yml"></a>配置_config.yml</h3><p>主要是针对网站的基本信息配置，比如网站(副)标题、描述等。</p>
+<h2 id="Mac安装pipenv"><a href="#Mac安装pipenv" class="headerlink" title="Mac安装pipenv"></a>Mac安装pipenv</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install pipenv</span><br></pre></td></tr></table></figure>
+<h2 id="pipenv创建虚拟环境"><a href="#pipenv创建虚拟环境" class="headerlink" title="pipenv创建虚拟环境"></a>pipenv创建虚拟环境</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv --python x.x.x  # 完成后会生成Pipfile文件</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>具体参考：<a href="https://hexo.io/zh-cn/docs/configuration" target="_blank" rel="noopener">hexo配置</a></p>
+<p>默认地，虚拟环境会创建在~/.local/share/virtualenvs目录里面。<br>如果我们希望在每个项目的根目录下保存虚拟环境目录（.venv），需要在 .bashrc 或 .bash_profile 中配置如下：</p>
 </blockquote>
-<h2 id="更换主题"><a href="#更换主题" class="headerlink" title="更换主题"></a>更换主题</h2><p>这里我采用hexo的next主题，另外还有非常多主题可供选择，详见<a href="https://hexo.io/themes/index.html" target="_blank" rel="noopener">hexo-themes</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PIPENV_VENV_IN_PROJECT=1</span><br></pre></td></tr></table></figure>
+<p>要想使配置生效，执行下 <code>source ~/.bashrc</code> 或者 <code>source ~/.bash_profile</code></p>
+<h2 id="更新下载源"><a href="#更新下载源" class="headerlink" title="更新下载源"></a>更新下载源</h2><p>pipenv安装依赖时默认使用python官方pypi源，可以在创建好Pipfile以后，修改文件中 <code>source</code> 的 <code>url</code> 字段，设置为国内的pypi源，设置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[[source]]</span><br><span class="line"> url = &quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;</span><br><span class="line"> verify_ssl = true</span><br><span class="line"> name = &quot;pypi&quot;</span><br></pre></td></tr></table></figure>
+<h2 id="pipenv安装依赖"><a href="#pipenv安装依赖" class="headerlink" title="pipenv安装依赖"></a>pipenv安装依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv install xxx</span><br><span class="line"></span><br><span class="line">$ pipenv install xxx --dev  # 用于区分需要部署到线上的开发包、只需要在测试环境中执行的包</span><br></pre></td></tr></table></figure>
+<p>检查一下是否安装成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv graph</span><br></pre></td></tr></table></figure>
+<p>此时，项目的根目录下多了文件：<code>Pipfile.lock</code> ,这个文件记录了此项目的第三方依赖包详情。</p>
+<h2 id="pipenv删除依赖"><a href="#pipenv删除依赖" class="headerlink" title="pipenv删除依赖"></a>pipenv删除依赖</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv uninstall xxx</span><br></pre></td></tr></table></figure>
+<h2 id="安装项目所有依赖"><a href="#安装项目所有依赖" class="headerlink" title="安装项目所有依赖"></a>安装项目所有依赖</h2><p>根据项目的Pipfile和Pipfile.lock</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv install # 安装Pipfile中 [packages] 部分的包</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv install -d # 安装[dev-packages]部分的包</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>具体参考： <a href="https://theme-next.org/" target="_blank" rel="noopener">theme-next</a></p>
+<p>上面的方法都是安装Pipfile中列出来的第三方包的最新版本，如果是想安装Pipfile.lock中固定版本的第三方依赖包，需要执行：</p>
 </blockquote>
-<h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git clone https://github.com/theme-next/hexo-theme-next themes/next</span><br></pre></td></tr></table></figure>
-<h3 id="修改项目配置"><a href="#修改项目配置" class="headerlink" title="修改项目配置"></a>修改项目配置</h3><p>根目录下的_config.yml中，theme：next</p>
-<h3 id="修改主题配置"><a href="#修改主题配置" class="headerlink" title="修改主题配置"></a>修改主题配置</h3><p>这里罗列出我进行的主要个性化配置:（themes/next下的_config.yml）</p>
-<ul>
-<li>favicon</li>
-<li>footer</li>
-<li>menu</li>
-<li>scheme</li>
-<li>avatar</li>
-<li>auto_excerpt</li>
-<li>sidebar</li>
-<li>back2top</li>
-<li>social</li>
-<li>third party services</li>
-</ul>
-<blockquote>
-<p>具体参考：<a href="https://theme-next.org/docs/" target="_blank" rel="noopener">theme-next doc</a></p>
-</blockquote>
-<h2 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h2><ul>
-<li>github添加公钥</li>
-</ul>
-<p>如果是首次在一台机器进行部署（或更换了环境），记得在github添加公钥。<br>具体参考：<a href="https://xuanwo.io/2015/02/07/generate-a-ssh-key/" target="_blank" rel="noopener">使用Github SSH Key以免去Hexo部署时输入密码</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pipenv install --ignore-pipfile</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -618,11 +579,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/原创/" rel="tag"># 原创</a>
+            <a href="/tags/pyenv/" rel="tag"># pyenv</a>
           
-            <a href="/tags/GitPage/" rel="tag"># GitPage</a>
-          
-            <a href="/tags/Hexo/" rel="tag"># Hexo</a>
+            <a href="/tags/pipenv/" rel="tag"># pipenv</a>
           
         </div>
       
@@ -635,15 +594,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/04/01/再读React-Docs/" rel="next" title="再读React Docs">
+                <i class="fa fa-chevron-left"></i> 再读React Docs
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/08/01/基于videojs的web直播系统重构/" rel="prev" title="React+Mobx+videojs重构web直播系统">
-                React+Mobx+videojs重构web直播系统 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -881,7 +840,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境"><span class="nav-number">1.</span> <span class="nav-text">环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub"><span class="nav-number">2.</span> <span class="nav-text">GitHub</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建Pages项目"><span class="nav-number">2.1.</span> <span class="nav-text">创建Pages项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分支管理"><span class="nav-number">2.2.</span> <span class="nav-text">分支管理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hexo"><span class="nav-number">3.</span> <span class="nav-text">Hexo</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装"><span class="nav-number">3.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建hexo项目"><span class="nav-number">3.2.</span> <span class="nav-text">创建hexo项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拉取Github项目到本地"><span class="nav-number">3.3.</span> <span class="nav-text">拉取Github项目到本地</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">3.4.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更文步骤"><span class="nav-number">3.5.</span> <span class="nav-text">更文步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置-config-yml"><span class="nav-number">3.6.</span> <span class="nav-text">配置_config.yml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更换主题"><span class="nav-number">4.</span> <span class="nav-text">更换主题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#下载"><span class="nav-number">4.1.</span> <span class="nav-text">下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改项目配置"><span class="nav-number">4.2.</span> <span class="nav-text">修改项目配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改主题配置"><span class="nav-number">4.3.</span> <span class="nav-text">修改主题配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备注"><span class="nav-number">5.</span> <span class="nav-text">备注</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac安装pyenv"><span class="nav-number">1.</span> <span class="nav-text">Mac安装pyenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv安装Python"><span class="nav-number">2.</span> <span class="nav-text">pyenv安装Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的报错："><span class="nav-number">2.1.</span> <span class="nav-text">可能遇到的报错：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv切换Python"><span class="nav-number">3.</span> <span class="nav-text">pyenv切换Python</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#pipenv"><span class="nav-number"></span> <span class="nav-text">pipenv</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac安装pipenv"><span class="nav-number">1.</span> <span class="nav-text">Mac安装pipenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv创建虚拟环境"><span class="nav-number">2.</span> <span class="nav-text">pipenv创建虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新下载源"><span class="nav-number">3.</span> <span class="nav-text">更新下载源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv安装依赖"><span class="nav-number">4.</span> <span class="nav-text">pipenv安装依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv删除依赖"><span class="nav-number">5.</span> <span class="nav-text">pipenv删除依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装项目所有依赖"><span class="nav-number">6.</span> <span class="nav-text">安装项目所有依赖</span></a></li></ol></li></div>
             
 
           </div>
@@ -1079,7 +1038,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2017/04/01/GitPage-Hexo建站/'
+    refer: '2019/04/10/python初探：pipenv-pyenv/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
