@@ -2,7 +2,7 @@
 title: 再读React Docs
 date: 2019-04-01 13:28:25
 tags: [React]
-categories: 技术
+categories: 前端
 ---
 
 平时会看到各种各样关于React的文章，其实React官方的doc足够精彩、精炼且准确，我们不妨通过读一读[官方doc](https://react.docschina.org/docs/jsx-in-depth.html)来加深对React诸多概念的理解掌握，亦或者查缺补漏、温故知新。在这里记录阅读官方文档时的一些知识点，以备之后查询。

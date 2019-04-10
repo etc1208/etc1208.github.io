@@ -2,7 +2,7 @@
 title: Chrome的断点调试
 date: 2019-03-22 13:31:29
 tags: [Chrome, 调试]
-categories: 技术
+categories: 前端
 ---
 
 前端开发离不开浏览器环境的debug，chrome为我们提供了断点调试的诸多便利，利用断点调试我们可以触达代码逻辑细微之处、DOM元素变化的瞬间、XHR请求的发生、事件监听的触发等等；有助于我们对bug的追踪排查。这篇笔记记录chrome断点调试js代码的种种功能，在开发过程中提高我们的debug效率。

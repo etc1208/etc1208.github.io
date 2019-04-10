@@ -2,7 +2,7 @@
 title: React+Mobx+videojs重构web直播系统
 date: 2017-08-01 12:00:00
 tags: [直播, React, Mobx, VideoJs, 原创]
-categories: 项目
+categories: 前端
 top: true
 ---
 

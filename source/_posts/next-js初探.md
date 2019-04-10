@@ -2,7 +2,7 @@
 title: next.js初探
 date: 2018-12-30 17:50:00
 tags: [React, SSR, next.js, 原创]
-categories: 技术
+categories: 前端
 top: true
 ---
 
