@@ -9,7 +9,7 @@ categories: python
 
 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。
 
-#pyenv
+# pyenv
 
 > pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本的Python. (类比于node版本管理工具nvm)
 
