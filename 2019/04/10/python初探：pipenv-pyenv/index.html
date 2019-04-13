@@ -107,18 +107,18 @@
 
 
 
-  <meta name="description" content="本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。 #pyenv  pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本">
+  <meta name="description" content="本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。 pyenv pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本的P">
 <meta name="keywords" content="pyenv,pipenv">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python初探：pyenv&amp;pipenv">
 <meta property="og:url" content="https://etc1208.github.io/2019/04/10/python初探：pipenv-pyenv/index.html">
 <meta property="og:site_name" content="杨赫的网络日志">
-<meta property="og:description" content="本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。 #pyenv  pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本">
+<meta property="og:description" content="本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。 pyenv pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本的P">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-04-10T06:43:27.766Z">
+<meta property="og:updated_time" content="2019-04-13T12:00:26.190Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python初探：pyenv&amp;pipenv">
-<meta name="twitter:description" content="本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。 #pyenv  pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本">
+<meta name="twitter:description" content="本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。 作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。 pyenv pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本的P">
 
 
 
@@ -450,12 +450,24 @@
                 
               
 
-              <time title="Created: 2019-04-10 12:08:31 / Modified: 14:43:27" itemprop="dateCreated datePublished" datetime="2019-04-10T12:08:31+08:00">2019-04-10</time>
+              <time title="Created: 2019-04-10 12:08:31" itemprop="dateCreated datePublished" datetime="2019-04-10T12:08:31+08:00">2019-04-10</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Edited on</span>
+                
+                <time title="Modified: 2019-04-13 20:00:26" itemprop="dateModified" datetime="2019-04-13T20:00:26+08:00">2019-04-13</time>
               
             
           </span>
@@ -516,8 +528,7 @@
       
         <p>本着艺多不压身的革命宗旨，计划从今天开始学习下python。之前有粗略的看过两眼，一直没有系统的学习或者实际的使用，希望能够在业余时间接触下这门已经热火朝天口口相传的编程语言，打开新世界的大门，扩充自己的知识面。</p>
 <p>作为第一篇python笔记，从开发环境入手，介绍pipenv与pyenv这两个重要的工具。</p>
-<p>#pyenv</p>
-<blockquote>
+<h1 id="pyenv"><a href="#pyenv" class="headerlink" title="pyenv"></a>pyenv</h1><blockquote>
 <p>pyenv是Python版本管理工具，利用它我们可以在同一台电脑上安装多个版本的Python. (类比于node版本管理工具nvm)</p>
 </blockquote>
 <h2 id="Mac安装pyenv"><a href="#Mac安装pyenv" class="headerlink" title="Mac安装pyenv"></a>Mac安装pyenv</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 安装</span><br><span class="line">$ brew install pyenv</span><br><span class="line"></span><br><span class="line">// 升级</span><br><span class="line">$ brew upgrade pyenv</span><br></pre></td></tr></table></figure>
@@ -840,7 +851,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac安装pyenv"><span class="nav-number">1.</span> <span class="nav-text">Mac安装pyenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv安装Python"><span class="nav-number">2.</span> <span class="nav-text">pyenv安装Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的报错："><span class="nav-number">2.1.</span> <span class="nav-text">可能遇到的报错：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv切换Python"><span class="nav-number">3.</span> <span class="nav-text">pyenv切换Python</span></a></li></ol><li class="nav-item nav-level-1"><a class="nav-link" href="#pipenv"><span class="nav-number"></span> <span class="nav-text">pipenv</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac安装pipenv"><span class="nav-number">1.</span> <span class="nav-text">Mac安装pipenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv创建虚拟环境"><span class="nav-number">2.</span> <span class="nav-text">pipenv创建虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新下载源"><span class="nav-number">3.</span> <span class="nav-text">更新下载源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv安装依赖"><span class="nav-number">4.</span> <span class="nav-text">pipenv安装依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv删除依赖"><span class="nav-number">5.</span> <span class="nav-text">pipenv删除依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装项目所有依赖"><span class="nav-number">6.</span> <span class="nav-text">安装项目所有依赖</span></a></li></ol></li></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#pyenv"><span class="nav-number">1.</span> <span class="nav-text">pyenv</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac安装pyenv"><span class="nav-number">1.1.</span> <span class="nav-text">Mac安装pyenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv安装Python"><span class="nav-number">1.2.</span> <span class="nav-text">pyenv安装Python</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#可能遇到的报错："><span class="nav-number">1.2.1.</span> <span class="nav-text">可能遇到的报错：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyenv切换Python"><span class="nav-number">1.3.</span> <span class="nav-text">pyenv切换Python</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pipenv"><span class="nav-number">2.</span> <span class="nav-text">pipenv</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mac安装pipenv"><span class="nav-number">2.1.</span> <span class="nav-text">Mac安装pipenv</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv创建虚拟环境"><span class="nav-number">2.2.</span> <span class="nav-text">pipenv创建虚拟环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新下载源"><span class="nav-number">2.3.</span> <span class="nav-text">更新下载源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv安装依赖"><span class="nav-number">2.4.</span> <span class="nav-text">pipenv安装依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pipenv删除依赖"><span class="nav-number">2.5.</span> <span class="nav-text">pipenv删除依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装项目所有依赖"><span class="nav-number">2.6.</span> <span class="nav-text">安装项目所有依赖</span></a></li></ol></li></ol></div>
             
 
           </div>
