@@ -477,6 +477,16 @@ Blockly.Xml.domToWorkspace(xml, workspace);
 
 > 这将在工作区生成xml字符串所代表的blocks
 
+# 最佳实践
+
+- "C"型块在内部顶侧有一个连接器，没有底部连接器；声明块内部有上下两个连接器，这样嵌套在"C"型块内的声明块会有空隙，为了提示用户还可以继续堆叠更多声明块；
+
+- Blockly使用紧密贴合的拼图形状进行值连接；使用视觉上独特的对齐凹槽进行声明堆叠；
+
+- 忽略大小写，可以随意命名；
+
+- 程序可视化部分放在toolbox旁边；
+
 # 其他推荐
 
 - [Scratch Blocks](https://scratch.mit.edu/developers)：由麻省理工学院Scratch背后的人员设计并基于Blockly代码库，Scratch Blocks提供了一种简化的编程模型，非常适合年轻学习者。 
