@@ -3,7 +3,6 @@ title: 那些年我们一起追过的mpvue
 date: 2019-01-10 15:35:00
 tags: [Vue, 小程序, mpvue, 原创]
 categories: 前端
-top: true
 ---
 
 > 这里我们并不会深入讲述小程序开发;
