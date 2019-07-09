@@ -107,25 +107,25 @@
 
 
 
-  <meta name="description" content="在日常开发中，跨域是我们老生常谈的话题。为什么存在跨域呢？因为浏览器有同源策略，而我们实际的开发过程中时长存在哪种场景呢：从a域向b域发请求，浏览器就开始搞事情了。总之一句话，一切为了安全。这里不再去赘述跨域的一个个解决办法，比如我们常说的JSONP、domian、代理、postMessage等方式，此文仅简单记录CORS的一些琐碎。 cookie 一般用于身份验证 服务端通过在响应头加入Set-">
-<meta name="keywords" content="原创,跨域">
+  <meta name="description" content="Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。Hook 是一些可以让你在函数组件里“钩入” React state 及生命周期等特性的函数。Hook 不能在 class 组件中使用 —— 这使得你不使用 class 也能使用 React。React 内置了一些像 useState 这样的 Hook。也可以创建">
+<meta name="keywords" content="React,Hooks">
 <meta property="og:type" content="article">
-<meta property="og:title" content="withCredentials与CORS的爱恨情仇">
-<meta property="og:url" content="https://etc1208.github.io/2019/03/28/withCredentials与CORS的爱恨情仇/index.html">
+<meta property="og:title" content="带你入门React Hooks">
+<meta property="og:url" content="https://etc1208.github.io/2019/07/09/带你入门React-Hooks/index.html">
 <meta property="og:site_name" content="杨赫的网络日志">
-<meta property="og:description" content="在日常开发中，跨域是我们老生常谈的话题。为什么存在跨域呢？因为浏览器有同源策略，而我们实际的开发过程中时长存在哪种场景呢：从a域向b域发请求，浏览器就开始搞事情了。总之一句话，一切为了安全。这里不再去赘述跨域的一个个解决办法，比如我们常说的JSONP、domian、代理、postMessage等方式，此文仅简单记录CORS的一些琐碎。 cookie 一般用于身份验证 服务端通过在响应头加入Set-">
+<meta property="og:description" content="Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。Hook 是一些可以让你在函数组件里“钩入” React state 及生命周期等特性的函数。Hook 不能在 class 组件中使用 —— 这使得你不使用 class 也能使用 React。React 内置了一些像 useState 这样的 Hook。也可以创建">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-28T06:43:11.258Z">
+<meta property="og:updated_time" content="2019-07-09T05:59:02.977Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="withCredentials与CORS的爱恨情仇">
-<meta name="twitter:description" content="在日常开发中，跨域是我们老生常谈的话题。为什么存在跨域呢？因为浏览器有同源策略，而我们实际的开发过程中时长存在哪种场景呢：从a域向b域发请求，浏览器就开始搞事情了。总之一句话，一切为了安全。这里不再去赘述跨域的一个个解决办法，比如我们常说的JSONP、domian、代理、postMessage等方式，此文仅简单记录CORS的一些琐碎。 cookie 一般用于身份验证 服务端通过在响应头加入Set-">
+<meta name="twitter:title" content="带你入门React Hooks">
+<meta name="twitter:description" content="Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。Hook 是一些可以让你在函数组件里“钩入” React state 及生命周期等特性的函数。Hook 不能在 class 组件中使用 —— 这使得你不使用 class 也能使用 React。React 内置了一些像 useState 这样的 Hook。也可以创建">
 
 
 
 
 
 
-  <link rel="canonical" href="https://etc1208.github.io/2019/03/28/withCredentials与CORS的爱恨情仇/">
+  <link rel="canonical" href="https://etc1208.github.io/2019/07/09/带你入门React-Hooks/">
 
 
 
@@ -135,7 +135,7 @@
   };
 </script>
 
-  <title>withCredentials与CORS的爱恨情仇 | 杨赫的网络日志</title>
+  <title>带你入门React Hooks | 杨赫的网络日志</title>
   
 
 
@@ -406,7 +406,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2019/03/28/withCredentials与CORS的爱恨情仇/">
+    <link itemprop="mainEntityOfPage" href="https://etc1208.github.io/2019/07/09/带你入门React-Hooks/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="杨赫">
@@ -423,7 +423,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">withCredentials与CORS的爱恨情仇
+          <h2 class="post-title" itemprop="name headline">带你入门React Hooks
 
               
             
@@ -450,7 +450,7 @@
                 
               
 
-              <time title="Created: 2019-03-28 12:26:24 / Modified: 14:43:11" itemprop="dateCreated datePublished" datetime="2019-03-28T12:26:24+08:00">2019-03-28</time>
+              <time title="Created: 2019-07-09 10:21:48 / Modified: 13:59:02" itemprop="dateCreated datePublished" datetime="2019-07-09T10:21:48+08:00">2019-07-09</time>
             
 
             
@@ -472,7 +472,7 @@
                 <span class="post-meta-item-text">In</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/技术/" itemprop="url" rel="index"><span itemprop="name">技术</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/前端/" itemprop="url" rel="index"><span itemprop="name">前端</span></a></span>
 
                 
                 
@@ -514,77 +514,55 @@
       
 
       
-        <p>在日常开发中，跨域是我们老生常谈的话题。为什么存在跨域呢？因为浏览器有<a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy" target="_blank" rel="noopener">同源策略</a>，<br>而我们实际的开发过程中时长存在哪种场景呢：从a域向b域发请求，浏览器就开始搞事情了。总之一句话，一切为了安全。这里不再去赘述跨域的一个个解决办法，比如我们常说的JSONP、domian、代理、postMessage等方式，此文仅简单记录CORS的一些琐碎。</p>
-<h1 id="cookie"><a href="#cookie" class="headerlink" title="cookie"></a>cookie</h1><ul>
-<li>一般用于身份验证</li>
-<li>服务端通过在响应头加入Set-Cookie字段向浏览器写cookie</li>
-<li>浏览器向服务端发送请求时可以将cookie附加在HTTP请求的头字段Cookie中</li>
-<li>服务端可以设置httpOnly，使得前端无法操作cookie</li>
-<li>服务端可以设置secure，保证在https的加密通信中传输以防截获</li>
+        <p>Hook 是 React 16.8 的新增特性。它可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。<br>Hook 是一些可以让你在函数组件里“钩入” React state 及生命周期等特性的函数。Hook 不能在 class 组件中使用 —— 这使得你不使用 class 也能使用 React。<br>React 内置了一些像 useState 这样的 Hook。也可以创建你自己的 Hook 来复用不同组件之间的状态逻辑。</p>
+<h1 id="Hook-使用规则"><a href="#Hook-使用规则" class="headerlink" title="Hook 使用规则"></a>Hook 使用规则</h1><ul>
+<li>只能在函数最外层调用 Hook。不要在循环、条件判断或者子函数中调用。</li>
+<li>只能在 React 的函数组件中调用 Hook。不要在其他 JavaScript 函数中调用。（还有一个地方可以调用 Hook —— 就是自定义的 Hook 中）</li>
 </ul>
-<h1 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h1><blockquote>
-<p>跨域资源共享,它允许浏览器向跨源服务器发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制</p>
+<h2 id="eslint-plugin-react-hooks"><a href="#eslint-plugin-react-hooks" class="headerlink" title="eslint-plugin-react-hooks"></a>eslint-plugin-react-hooks</h2><p>一个名为 eslint-plugin-react-hooks 的 ESLint 插件来强制执行这两条规则。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install eslint-plugin-react-hooks --save-dev</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 你的 ESLint 配置</span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"plugins"</span>: [</span><br><span class="line">    // ...</span><br><span class="line">    <span class="string">"react-hooks"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"rules"</span>: &#123;</span><br><span class="line">    // ...</span><br><span class="line">    "react-hooks/rules-of-hooks": "error", // 检查 Hook 的规则</span><br><span class="line">    "react-hooks/exhaustive-deps": "warn" // 检查 effect 的依赖</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="基础-Hook"><a href="#基础-Hook" class="headerlink" title="基础 Hook"></a>基础 Hook</h1><h2 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h2><blockquote>
+<p>返回一个 state，以及更新 state 的函数。</p>
 </blockquote>
-<ul>
-<li><p>需要浏览器和服务器同时支持</p>
-</li>
-<li><p>JSONP只支持GET请求，CORS支持所有类型的HTTP请求</p>
-</li>
-</ul>
-<p>引用阮一峰老师的一段话：“整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。<br>因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。”</p>
-<h2 id="两种请求"><a href="#两种请求" class="headerlink" title="两种请求"></a>两种请求</h2><ul>
-<li>简单请求</li>
-<li>非简单请求</li>
-</ul>
-<h3 id="简单请求"><a href="#简单请求" class="headerlink" title="简单请求"></a>简单请求</h3><blockquote>
-<p>浏览器发现这次跨源AJAX请求是简单请求，就自动在头信息之中，添加一个Origin字段。</p>
-</blockquote>
-<p><code>Origin</code> 字段表示请求源，服务器根据这个值决定是否同意这次请求。</p>
-<ul>
-<li><code>Origin</code> 不在许可范围内</li>
-</ul>
-<p>响应头信息没有包含Access-Control-Allow-Origin字段，被XMLHttpRequest的onerror回调函数捕获。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; useState &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Example</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 声明一个叫 "count" 的 state 变量</span></span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;You clicked &#123;count&#125; times&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;</span></span><br><span class="line"><span class="regexp">        Click me</span></span><br><span class="line"><span class="regexp">      &lt;/</span>button&gt;</span><br><span class="line">    &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="函数式更新"><a href="#函数式更新" class="headerlink" title="函数式更新"></a>函数式更新</h3><p>如果新的 state 需要通过使用先前的 state 计算得出，那么可以将函数传递给 setState</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params">&#123;initialCount&#125;</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(initialCount);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      Count: &#123;count&#125;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(initialCount)&#125;&gt;Reset&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; setCount(prevCount =&gt; prevCount + 1)&#125;&gt;+&lt;/</span>button&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; setCount(<span class="function"><span class="params">prevCount</span> =&gt;</span> prevCount - <span class="number">1</span>)&#125;&gt;-&lt;/button&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>注意，这种错误无法通过状态码识别，因为HTTP回应的状态码有可能是200。</p>
+<p>与 class 组件中的 setState 方法不同，useState 不会自动合并更新对象。你可以用函数式的 setState 结合展开运算符来达到合并更新对象的效果。</p>
 </blockquote>
-<ul>
-<li><code>Origin</code> 在许可范围内</li>
-</ul>
-<p>服务器返回的响应，会多出几个头信息字段:</p>
-<ul>
-<li>Access-Control-Allow-Origin: 该字段是必须的。它的值要么是请求时Origin字段的值，要么是一个*，表示接受任意域名的请求</li>
-<li>Access-Control-Allow-Credentials: 该字段可选。它的值是一个布尔值，表示是否允许发送Cookie</li>
-<li>Access-Control-Expose-Headers</li>
-</ul>
-<h3 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h3><ul>
-<li><p>对服务器有特殊要求的请求，比如请求方法是PUT或DELETE，或者Content-Type字段的类型是application/json</p>
-</li>
-<li><p>正式通信之前，增加一次预检请求（preflight）。</p>
-<ul>
-<li>请求方法是OPTIONS</li>
-<li>头信息里面，关键字段是Origin，表示请求来自哪个源</li>
-</ul>
-</li>
-</ul>
-<p>浏览器先询问服务器，当前网页所在的域名是否在服务器的许可名单之中，以及可以使用哪些HTTP动词和头信息字段。只有得到肯定答复，浏览器才会发出正式的XMLHttpRequest请求，否则就报错。</p>
-<ul>
-<li>通过了预检请求后，就会发出正常的CORS请求，会有一个Origin头信息字段。服务器的回应，也都会有一个 <code>Access-Control-Allow-Origin</code> 头信息字段。</li>
-</ul>
-<h2 id="withCredentials"><a href="#withCredentials" class="headerlink" title="withCredentials"></a>withCredentials</h2><blockquote>
-<p>CORS请求默认不发送Cookie和HTTP认证信息。</p>
-</blockquote>
-<p>如果要把Cookie发到服务器,需要client + server 共同努力：</p>
-<ul>
-<li>服务端：设置Access-Control-Allow-Credentials: true</li>
-<li>客户端：设置withCredentials属性</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var xhr = new XMLHttpRequest();</span><br><span class="line">xhr.withCredentials = true;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">setState(<span class="function"><span class="params">prevState</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 也可以使用 Object.assign</span></span><br><span class="line">  <span class="keyword">return</span> &#123;...prevState, ...updatedValues&#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h3 id="惰性初始-state"><a href="#惰性初始-state" class="headerlink" title="惰性初始 state"></a>惰性初始 state</h3><p>initialState 参数只会在组件的初始渲染中起作用，后续渲染时会被忽略。如果初始 state 需要通过复杂计算获得，则可以传入一个函数，在函数中计算并返回初始的 state，此函数只在初始渲染时被调用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [state, setState] = useState(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> initialState = someExpensiveComputation(props);</span><br><span class="line">  <span class="keyword">return</span> initialState;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h2><p>使用 useEffect 完成副作用操作。赋值给 useEffect 的函数会在组件渲染到屏幕之后执行。</p>
+<p>默认情况下，effect 将在每轮渲染结束后执行，但你可以选择让它 在只有某些值改变的时候 才执行。</p>
+<h3 id="清除-effect"><a href="#清除-effect" class="headerlink" title="清除 effect"></a>清除 effect</h3><p>通常，组件卸载时需要清除 effect 创建的诸如订阅或计时器 ID 等资源。要实现这一点，useEffect 函数需返回一个清除函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> subscription = props.source.subscribe();</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 清除订阅</span></span><br><span class="line">    subscription.unsubscribe();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>永远不会影响到同源请求</p>
+<p>为防止内存泄漏，清除函数会在组件卸载前执行。另外，如果组件多次渲染（通常如此），则在执行下一个 effect 之前，上一个 effect 就已被清除</p>
+</blockquote>
+<h3 id="effect-的条件执行"><a href="#effect-的条件执行" class="headerlink" title="effect 的条件执行"></a>effect 的条件执行</h3><p>可以给 useEffect 传递第二个参数，它是 effect 所依赖的值数组</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">useEffect(</span><br><span class="line">  () =&gt; &#123;</span><br><span class="line">    <span class="keyword">const</span> subscription = props.source.subscribe();</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      subscription.unsubscribe();</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;,</span><br><span class="line">  [props.source],</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你要使用此优化方式，请确保数组中包含了所有外部作用域中会发生变化且在 effect 中使用的变量</p>
 </blockquote>
 <blockquote>
-<p>如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号!!!!!必须指定明确的、与请求网页一致的域名！！！！！<br>具体参见<a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/CORS/Errors/CORSNotSupportingCredentials" target="_blank" rel="noopener">Reason: Credential is not supported if the CORS header ‘Access-Control-Allow-Origin’ is ‘*’</a></p>
+<p>如果想执行只运行一次的 effect（仅在组件挂载和卸载时执行），可以传递一个空数组（[]）作为第二个参数。这就告诉 React 你的 effect 不依赖于 props 或 state 中的任何值，所以它永远都不需要重复执行</p>
 </blockquote>
+<h2 id="useContext"><a href="#useContext" class="headerlink" title="useContext"></a>useContext</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> value = useContext(MyContext);</span><br></pre></td></tr></table></figure>
+<p>接收一个 context 对象（React.createContext 的返回值）并返回该 context 的当前值。当前的 context 值由上层组件中距离当前组件最近的 &lt;MyContext.Provider&gt; 的 value prop 决定。</p>
+<p>当组件上层最近的 &lt;MyContext.Provider&gt; 更新时，该 Hook 会触发重渲染，并使用最新传递给 MyContext provider 的 context value 值。</p>
+<p>调用了 useContext 的组件总会在 context 值变化时重新渲染。如果重渲染组件的开销较大，你可以 通过使用 <a href="https://github.com/facebook/react/issues/15156#issuecomment-474590693" target="_blank" rel="noopener">memoization 来优化</a>。</p>
+<blockquote>
+<p>如果你在接触 Hook 前已经对 context API 比较熟悉，那应该可以理解，useContext(MyContext) 相当于 class 组件中的 static contextType = MyContext 或者 &lt;MyContext.Consumer&gt;。<br>useContext(MyContext) 只是让你能够读取 context 的值以及订阅 context 的变化。你仍然需要在上层组件树中使用 &lt;MyContext.Provider&gt; 来为下层组件提供 context。</p>
+</blockquote>
+<h1 id="额外的-Hook"><a href="#额外的-Hook" class="headerlink" title="额外的 Hook"></a>额外的 Hook</h1><h2 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialArg, init);</span><br></pre></td></tr></table></figure>
+<p>useState 的替代方案。它接收一个形如 (state, action) =&gt; newState 的 reducer，并返回当前的 state 以及与其配套的 dispatch 方法。（如果你熟悉 Redux 的话，就已经知道它如何工作了。）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = &#123;<span class="attr">count</span>: <span class="number">0</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">reducer</span>(<span class="params">state, action</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">switch</span> (action.type) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'increment'</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count + <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'decrement'</span>:</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">count</span>: state.count - <span class="number">1</span>&#125;;</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">      <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [state, dispatch] = useReducer(reducer, initialState);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      Count: &#123;state.count&#125;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(&#123;<span class="attr">type</span>: <span class="string">'increment'</span>&#125;)&#125;&gt;+&lt;/button&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(&#123;<span class="attr">type</span>: <span class="string">'decrement'</span>&#125;)&#125;&gt;-&lt;/button&gt;</span><br><span class="line">    &lt;<span class="regexp">/&gt;</span></span><br><span class="line"><span class="regexp">  );</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="指定初始-state"><a href="#指定初始-state" class="headerlink" title="指定初始 state"></a>指定初始 state</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [state, dispatch] = useReducer(</span><br><span class="line">  reducer,</span><br><span class="line">  &#123;<span class="attr">count</span>: initialCount&#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="useRef"><a href="#useRef" class="headerlink" title="useRef"></a>useRef</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> refContainer = useRef(initialValue);</span><br></pre></td></tr></table></figure>
+<p>useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">TextInputWithFocusButton</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> inputEl = useRef(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> onButtonClick = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// `current` 指向已挂载到 DOM 上的文本输入元素</span></span><br><span class="line">    inputEl.current.focus();</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;input ref=&#123;inputEl&#125; type=<span class="string">"text"</span> /&gt;</span><br><span class="line">      &lt;button onClick=&#123;onButtonClick&#125;&gt;Focus the input&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -608,9 +586,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/原创/" rel="tag"># 原创</a>
+            <a href="/tags/React/" rel="tag"># React</a>
           
-            <a href="/tags/跨域/" rel="tag"># 跨域</a>
+            <a href="/tags/Hooks/" rel="tag"># Hooks</a>
           
         </div>
       
@@ -623,8 +601,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/03/22/Chrome的断点调试/" rel="next" title="Chrome的断点调试">
-                <i class="fa fa-chevron-left"></i> Chrome的断点调试
+              <a href="/2019/05/24/react-typescript-cheatsheet/" rel="next" title="react-typescript-cheatsheet">
+                <i class="fa fa-chevron-left"></i> react-typescript-cheatsheet
               </a>
             
           </div>
@@ -632,10 +610,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/04/01/再读React-Docs/" rel="prev" title="再读React Docs">
-                再读React Docs <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -879,7 +853,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cookie"><span class="nav-number">1.</span> <span class="nav-text">cookie</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CORS"><span class="nav-number">2.</span> <span class="nav-text">CORS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两种请求"><span class="nav-number">2.1.</span> <span class="nav-text">两种请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#简单请求"><span class="nav-number">2.1.1.</span> <span class="nav-text">简单请求</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非简单请求"><span class="nav-number">2.1.2.</span> <span class="nav-text">非简单请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#withCredentials"><span class="nav-number">2.2.</span> <span class="nav-text">withCredentials</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Hook-使用规则"><span class="nav-number">1.</span> <span class="nav-text">Hook 使用规则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#eslint-plugin-react-hooks"><span class="nav-number">1.1.</span> <span class="nav-text">eslint-plugin-react-hooks</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基础-Hook"><span class="nav-number">2.</span> <span class="nav-text">基础 Hook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#useState"><span class="nav-number">2.1.</span> <span class="nav-text">useState</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数式更新"><span class="nav-number">2.1.1.</span> <span class="nav-text">函数式更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#惰性初始-state"><span class="nav-number">2.1.2.</span> <span class="nav-text">惰性初始 state</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useEffect"><span class="nav-number">2.2.</span> <span class="nav-text">useEffect</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#清除-effect"><span class="nav-number">2.2.1.</span> <span class="nav-text">清除 effect</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#effect-的条件执行"><span class="nav-number">2.2.2.</span> <span class="nav-text">effect 的条件执行</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useContext"><span class="nav-number">2.3.</span> <span class="nav-text">useContext</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#额外的-Hook"><span class="nav-number">3.</span> <span class="nav-text">额外的 Hook</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#useReducer"><span class="nav-number">3.1.</span> <span class="nav-text">useReducer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#指定初始-state"><span class="nav-number">3.1.1.</span> <span class="nav-text">指定初始 state</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#useRef"><span class="nav-number">3.2.</span> <span class="nav-text">useRef</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1077,7 +1051,7 @@
   
     <script>
   window.livereOptions = {
-    refer: '2019/03/28/withCredentials与CORS的爱恨情仇/'
+    refer: '2019/07/09/带你入门React-Hooks/'
   };
   (function(d, s) {
     var j, e = d.getElementsByTagName(s)[0];
