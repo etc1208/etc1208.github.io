@@ -1,9 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[探索React与Three.js]]></title>
+    <url>%2F2020%2F02%2F28%2F%E6%8E%A2%E7%B4%A2React%E4%B8%8EThreeJs%2F</url>
+    <content type="text"><![CDATA[在最近的工作中，逐渐增多了对用户体验、交互的需求：比如3D渲染与手势交互。WebGL是一种JavaScript API，用于在不使用插件的情况下在任何兼容的网页浏览器中呈现交互式2D和3D图形，但开发复杂，代码量巨大，这时候three.js应运而生，它是WebGL的JavaScript 3D库，其对WebGL提供的接口进行了非常好的封装，简化了很多细节，大大降低了学习成本。 今天我们针对在react技术栈中接入three.js进行3D图形绘制，打开three.js的大门，并探索这其中的技术选型。 Three.js是什么?Three.js is the world’s most popular JavaScript framework for displaying 3D content on the web, providing you with the power to display incredible models, games, music videos, scientific and data visualizations, or pretty much anything else you can imagine, right in your browser and on your smartphone! 技术选型 Three.js（其实基本的需求他就够了） whs.js（面向对象） react-three（react 15） react-three-fiber ✅ （react 16） vue-threejs （vue技术栈） three的核心概念误区: Three.js ≠ WebGL WebGL非常底层，使用WebGL需要大量代码 Three.js可以处理诸如场景，灯光，阴影，材质，纹理… Three三大件Renderer WebGLRenderer CanvasRenderer DOMRenderer SVGRenderer Scene右手直角坐标系 Camera OrthographicCamera（正交相机） PerspectiveCamera (透视相机) CubeCamera（全景相机） StereoCamera（3D相机） Three.js 主要概念 Mesh=Geometry+Material Geometry EdgesGeometry CylinderGeometry BoxGeometry ConeGeometry CircleGeometry Material MeshBasicMaterial MeshLambertMaterial MeshPhongMaterial 画一个正六面体 对比 whs &amp; react-three-fiberwhs.js一切皆module react-three-fiber 封装好的Canvas 灵活的写法 丰富的事件 Hooks 辅助工具 stats.js 性能监控 坑锯齿&amp;模糊three.js默认绘制效果锯齿化明显、模糊 three.js react-three-fiber 如何画带边框的立方体 three.js并没原生提供带边框的几何体 法一：edgesGeometry + boxGeometry 问题：线宽度无法调整 法二：texture (纹理)]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>React</tag>
+        <tag>Three.js</tag>
+        <tag>react-three-fiber</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Git Submodule]]></title>
     <url>%2F2019%2F07%2F26%2FGit-Submodule%2F</url>
-    <content type="text"><![CDATA[Git是程序员在日常开发中不可分割的强有力工具，有时候我们需要在两个甚至多个仓库间进行同步和公用，需要提取一个公共的类库提供给多个项目使用，或者说某个项目需要包含并使用另一（/多)个项目，这时候可以使用Git Submodule 解决。 子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立。 解决问题 如何在git项目中导入子库? 子库在其他的项目中被修改了可以更新到远程的代码库中? 其他项目如何获取到子库最新的提交? 如何在clone的时候能够自动导入子库? 开始使用Submodule添加Submodule1git submodule add https://github.com/xxx/XXXX [XXXX位置] 默认，子模块会将子项目放到一个与仓库同名的目录中。 如果你想要放到其他地方，可以在命令结尾添加一个不同的路径。 1234567git statusOn branch masterChanges to be committed: new file: .gitmodules new file: XXXX .gitmodules 文件该配置文件保存了项目 URL 与已经拉取的本地目录之间的映射： 1234$ cat .gitmodules[submodule "XXXX"] path = XXXX url = https://github.com/xxx/XXXX 如果有多个子模块，该文件中就会有多条记录。该文件一样受到版本控制 修改Submodule 首先需要有对Submodule的commit权限。 进入Submodule目录：cd XXXX 修改内容 查看变动：git status 提交更改内容：git commit 推送远程：git push 回到父目录,提交Submodule在父项目中的变动 git commit -m’update submodule’ git push 更新Submodule 方式一：在父项目的目录下直接更新 1git submodule foreach git pull 方式一：在Submodule的目录下面更新 12cd xxxxgit pull 在Submodule目录中使用git如同在一个独立的项目,更新Submodule时如果有新的commit id产生，需要在父项目产生一个新的提交 克隆含有Submodule的项目 方式一：递归clone整个项目 1git clone git@github.com:xxx/xxxx.git --recursive 方式二：先clone父项目，再更新子项目 1234git clone git@github.com:xxx/xxxx.gitcd xxxsubmodulegit submodule initgit submodule update 更新Submodulegit submodule update --remote: Git 将会进入子模块然后抓取并更新 此命令默认会假定你想要更新并检出子模块仓库的 master 分支当运行 git submodule update –remote 时，Git 默认会尝试更新所有子模块，所以如果有很多子模块的话，你可以传递想要更新的子模块的名字。 更改Submodule的追踪分支12// 更改为追踪XXX子模块的xxxBranch分支git config -f .gitmodules submodule.XXX.branch xxxBranch 删除Submodule git不支持直接删除Submodule,需手动删除: 12345678cd xxxsubmodulegit rm --cached xxxsubmodulerm -rf xxxsubmodulerm .gitmodules// 更改git的配置文件config:vim .git/config]]></content>
+    <content type="text"><![CDATA[Git是程序员在日常开发中不可分割的强有力工具，有时候我们需要在两个甚至多个仓库间进行同步和公用，需要提取一个公共的类库提供给多个项目使用，或者说某个项目需要包含并使用另一（/多)个项目，这时候可以使用Git Submodule 解决。 子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立。 解决问题 如何在git项目中导入子库? 子库在其他的项目中被修改了可以更新到远程的代码库中? 其他项目如何获取到子库最新的提交? 如何在clone的时候能够自动导入子库? 开始使用Submodule添加Submodule1git submodule add https://github.com/xxx/XXXX [XXXX位置] 默认，子模块会将子项目放到一个与仓库同名的目录中。 如果你想要放到其他地方，可以在命令结尾添加一个不同的路径。 1234567git statusOn branch masterChanges to be committed: new file: .gitmodules new file: XXXX .gitmodules 文件该配置文件保存了项目 URL 与已经拉取的本地目录之间的映射： 1234$ cat .gitmodules[submodule "XXXX"] path = XXXX url = https://github.com/xxx/XXXX 如果有多个子模块，该文件中就会有多条记录。该文件一样受到版本控制 修改Submodule 首先需要有对Submodule的commit权限。 进入Submodule目录：cd XXXX 修改内容 查看变动：git status 提交更改内容：git commit 推送远程：git push 回到父目录,提交Submodule在父项目中的变动 git commit -m’update submodule’ git push 在Submodule目录中使用git如同在一个独立的项目,更新Submodule时如果有新的commit id产生，需要在父项目产生一个新的提交 更新Submodule 方式一：在父项目的目录下直接更新 1git submodule foreach git pull 方式一：在Submodule的目录下面更新 12cd xxxxgit pull 克隆含有Submodule的项目 方式一：递归clone整个项目 1git clone git@github.com:xxx/xxxx.git --recursive 方式二：先clone父项目，再更新子项目 1234git clone git@github.com:xxx/xxxx.gitcd xxxsubmodulegit submodule initgit submodule update 更新Submodulegit submodule update --remote: Git 将会进入子模块然后抓取并更新 此命令默认会假定你想要更新并检出子模块仓库的 master 分支当运行 git submodule update –remote 时，Git 默认会尝试更新所有子模块，所以如果有很多子模块的话，你可以传递想要更新的子模块的名字。 更改Submodule的追踪分支12// 更改为追踪XXX子模块的xxxBranch分支git config -f .gitmodules submodule.XXX.branch xxxBranch 删除Submodule git不支持直接删除Submodule,需手动删除: 12345678cd xxxsubmodulegit rm --cached xxxsubmodulerm -rf xxxsubmodulerm .gitmodules// 更改git的配置文件config:vim .git/config 坑更新 submodule 的坑 如果你的同事更新了 submodule，然后更新了父项目中依赖的版本号。你需要在 git pull 之后，调用 git submodule update 来更新 submodule 信息 修改 submodule 的坑有些时候你需要对 submodule 做一些修改，很常见的做法就是切到 submodule 的目录，然后做修改，然后 commit 和 push。 默认 git submodule update 并不会将 submodule 切到任何 branch，所以，默认下 submodule 的 HEAD 是处于游离状态的 (‘detached HEAD’ state)。所以在修改前，记得一定要用 git checkout master 将当前的 submodule 分支切换到 master，然后才能做修改和提交。 如果你不慎忘记切换到 master 分支，又做了提交，可以用 cherry-pick 命令挽救。具体做法如下： 用 git checkout master 将 HEAD 从游离状态切换到 master 分支 , 这时候，git 会报 Warning 说有一个提交没有在 branch 上，记住这个提交的 change-id（假如 change-id 为 aaaa) 用 git cherry-pick aaaa 来将刚刚的提交作用在 master 分支上 用 git push 将更新提交到远程版本库中]]></content>
       <categories>
         <category>技术</category>
       </categories>
@@ -173,8 +186,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>Electron</tag>
         <tag>原创</tag>
+        <tag>Electron</tag>
       </tags>
   </entry>
   <entry>
@@ -222,9 +235,9 @@
         <category>技术</category>
       </categories>
       <tags>
-        <tag>原创</tag>
         <tag>GitPage</tag>
         <tag>Hexo</tag>
+        <tag>原创</tag>
       </tags>
   </entry>
 </search>

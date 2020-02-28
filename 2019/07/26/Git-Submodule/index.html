@@ -115,7 +115,7 @@
 <meta property="og:site_name" content="杨赫的网络日志">
 <meta property="og:description" content="Git是程序员在日常开发中不可分割的强有力工具，有时候我们需要在两个甚至多个仓库间进行同步和公用，需要提取一个公共的类库提供给多个项目使用，或者说某个项目需要包含并使用另一（/多)个项目，这时候可以使用Git Submodule 解决。 子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立。 解决问题 如何在git项目中导">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-27T00:43:55.690Z">
+<meta property="og:updated_time" content="2019-10-22T04:31:38.779Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Git Submodule">
 <meta name="twitter:description" content="Git是程序员在日常开发中不可分割的强有力工具，有时候我们需要在两个甚至多个仓库间进行同步和公用，需要提取一个公共的类库提供给多个项目使用，或者说某个项目需要包含并使用另一（/多)个项目，这时候可以使用Git Submodule 解决。 子模块允许你将一个 Git 仓库作为另一个 Git 仓库的子目录。 它能让你将另一个仓库克隆到自己的项目中，同时还保持提交的独立。 解决问题 如何在git项目中导">
@@ -285,7 +285,7 @@
       
     
 
-    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">26</span></a>
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>Tags<span class="badge">28</span></a>
 
   </li>
         
@@ -323,7 +323,7 @@
       
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">19</span></a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives<span class="badge">20</span></a>
 
   </li>
 
@@ -467,7 +467,7 @@
                 
                   <span class="post-meta-item-text">Edited on</span>
                 
-                <time title="Modified: 2019-07-27 08:43:55" itemprop="dateModified" datetime="2019-07-27T08:43:55+08:00">2019-07-27</time>
+                <time title="Modified: 2019-10-22 12:31:38" itemprop="dateModified" datetime="2019-10-22T12:31:38+08:00">2019-10-22</time>
               
             
           </span>
@@ -567,6 +567,9 @@
 </ul>
 </li>
 </ul>
+<blockquote>
+<p>在Submodule目录中使用git如同在一个独立的项目,更新Submodule时如果有新的commit id产生，需要在父项目产生一个新的提交</p>
+</blockquote>
 <h2 id="更新Submodule"><a href="#更新Submodule" class="headerlink" title="更新Submodule"></a>更新Submodule</h2><ul>
 <li>方式一：在父项目的目录下直接更新</li>
 </ul>
@@ -575,9 +578,6 @@
 <li>方式一：在Submodule的目录下面更新</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd xxxx</span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在Submodule目录中使用git如同在一个独立的项目,更新Submodule时如果有新的commit id产生，需要在父项目产生一个新的提交</p>
-</blockquote>
 <h2 id="克隆含有Submodule的项目"><a href="#克隆含有Submodule的项目" class="headerlink" title="克隆含有Submodule的项目"></a>克隆含有Submodule的项目</h2><ul>
 <li>方式一：递归clone整个项目</li>
 </ul>
@@ -595,6 +595,19 @@
 <p>git不支持直接删除Submodule,需手动删除:</p>
 </blockquote>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cd xxxsubmodule</span><br><span class="line"></span><br><span class="line">git rm --cached xxxsubmodule</span><br><span class="line">rm -rf xxxsubmodule</span><br><span class="line">rm .gitmodules</span><br><span class="line"></span><br><span class="line">// 更改git的配置文件config:</span><br><span class="line">vim .git/config</span><br></pre></td></tr></table></figure>
+<h2 id="坑"><a href="#坑" class="headerlink" title="坑"></a>坑</h2><h3 id="更新-submodule-的坑"><a href="#更新-submodule-的坑" class="headerlink" title="更新 submodule 的坑"></a>更新 submodule 的坑</h3><blockquote>
+<p>如果你的同事更新了 submodule，然后更新了父项目中依赖的版本号。你需要在 <code>git pull</code> 之后，调用 <code>git submodule update</code> 来更新 submodule 信息</p>
+</blockquote>
+<h3 id="修改-submodule-的坑"><a href="#修改-submodule-的坑" class="headerlink" title="修改 submodule 的坑"></a>修改 submodule 的坑</h3><p>有些时候你需要对 submodule 做一些修改，很常见的做法就是切到 submodule 的目录，然后做修改，然后 commit 和 push。</p>
+<blockquote>
+<p>默认 git submodule update 并不会将 submodule 切到任何 branch，所以，<code>默认下 submodule 的 HEAD 是处于游离状态的 (‘detached HEAD’ state)</code>。所以在修改前，记得一定要用 git checkout master 将当前的 submodule 分支切换到 master，然后才能做修改和提交。</p>
+</blockquote>
+<p><em>如果你不慎忘记切换到 master 分支，又做了提交，可以用 cherry-pick 命令挽救。具体做法如下：</em></p>
+<ul>
+<li>用 git checkout master 将 HEAD 从游离状态切换到 master 分支 , 这时候，git 会报 Warning 说有一个提交没有在 branch 上，记住这个提交的 change-id（假如 change-id 为 aaaa)</li>
+<li>用 git cherry-pick aaaa 来将刚刚的提交作用在 master 分支上</li>
+<li>用 git push 将更新提交到远程版本库中</li>
+</ul>
 
       
     </div>
@@ -640,6 +653,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/28/探索React与ThreeJs/" rel="prev" title="探索React与Three.js">
+                探索React与Three.js <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -715,7 +732,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">19</span>
+                    <span class="site-state-item-count">20</span>
                     <span class="site-state-item-name">posts</span>
                   </a>
                 </div>
@@ -809,7 +826,11 @@
                     
                       
                     
-                    <span class="site-state-item-count">26</span>
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">28</span>
                     <span class="site-state-item-name">tags</span>
                   </a>
                 </div>
@@ -885,7 +906,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#解决问题"><span class="nav-number">1.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始使用Submodule"><span class="nav-number">2.</span> <span class="nav-text">开始使用Submodule</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Submodule"><span class="nav-number">2.1.</span> <span class="nav-text">添加Submodule</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gitmodules-文件"><span class="nav-number">2.1.1.</span> <span class="nav-text">.gitmodules 文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改Submodule"><span class="nav-number">2.2.</span> <span class="nav-text">修改Submodule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新Submodule"><span class="nav-number">2.3.</span> <span class="nav-text">更新Submodule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆含有Submodule的项目"><span class="nav-number">2.4.</span> <span class="nav-text">克隆含有Submodule的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新Submodule-1"><span class="nav-number">2.5.</span> <span class="nav-text">更新Submodule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改Submodule的追踪分支"><span class="nav-number">2.6.</span> <span class="nav-text">更改Submodule的追踪分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除Submodule"><span class="nav-number">2.7.</span> <span class="nav-text">删除Submodule</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#解决问题"><span class="nav-number">1.</span> <span class="nav-text">解决问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开始使用Submodule"><span class="nav-number">2.</span> <span class="nav-text">开始使用Submodule</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#添加Submodule"><span class="nav-number">2.1.</span> <span class="nav-text">添加Submodule</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gitmodules-文件"><span class="nav-number">2.1.1.</span> <span class="nav-text">.gitmodules 文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改Submodule"><span class="nav-number">2.2.</span> <span class="nav-text">修改Submodule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新Submodule"><span class="nav-number">2.3.</span> <span class="nav-text">更新Submodule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#克隆含有Submodule的项目"><span class="nav-number">2.4.</span> <span class="nav-text">克隆含有Submodule的项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更新Submodule-1"><span class="nav-number">2.5.</span> <span class="nav-text">更新Submodule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更改Submodule的追踪分支"><span class="nav-number">2.6.</span> <span class="nav-text">更改Submodule的追踪分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除Submodule"><span class="nav-number">2.7.</span> <span class="nav-text">删除Submodule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#坑"><span class="nav-number">2.8.</span> <span class="nav-text">坑</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#更新-submodule-的坑"><span class="nav-number">2.8.1.</span> <span class="nav-text">更新 submodule 的坑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改-submodule-的坑"><span class="nav-number">2.8.2.</span> <span class="nav-text">修改 submodule 的坑</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
@@ -913,7 +934,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user-circle"></i>
   </span>
