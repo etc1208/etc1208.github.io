@@ -66,6 +66,8 @@ $ cat .gitmodules
   - git commit -m'update submodule'
   - git push
 
+> 在Submodule目录中使用git如同在一个独立的项目,更新Submodule时如果有新的commit id产生，需要在父项目产生一个新的提交
+
 ## 更新Submodule
 
 - 方式一：在父项目的目录下直接更新
@@ -81,7 +83,6 @@ cd xxxx
 git pull
 ```
 
-> 在Submodule目录中使用git如同在一个独立的项目,更新Submodule时如果有新的commit id产生，需要在父项目产生一个新的提交
 
 ## 克隆含有Submodule的项目
 
@@ -128,3 +129,23 @@ rm .gitmodules
 // 更改git的配置文件config:
 vim .git/config
 ```
+
+## 坑
+
+### 更新 submodule 的坑
+
+> 如果你的同事更新了 submodule，然后更新了父项目中依赖的版本号。你需要在 `git pull` 之后，调用 `git submodule update` 来更新 submodule 信息
+
+### 修改 submodule 的坑
+
+有些时候你需要对 submodule 做一些修改，很常见的做法就是切到 submodule 的目录，然后做修改，然后 commit 和 push。
+
+> 默认 git submodule update 并不会将 submodule 切到任何 branch，所以，`默认下 submodule 的 HEAD 是处于游离状态的 (‘detached HEAD’ state)`。所以在修改前，记得一定要用 git checkout master 将当前的 submodule 分支切换到 master，然后才能做修改和提交。
+
+
+*如果你不慎忘记切换到 master 分支，又做了提交，可以用 cherry-pick 命令挽救。具体做法如下：*
+
+- 用 git checkout master 将 HEAD 从游离状态切换到 master 分支 , 这时候，git 会报 Warning 说有一个提交没有在 branch 上，记住这个提交的 change-id（假如 change-id 为 aaaa)
+- 用 git cherry-pick aaaa 来将刚刚的提交作用在 master 分支上
+- 用 git push 将更新提交到远程版本库中
+
